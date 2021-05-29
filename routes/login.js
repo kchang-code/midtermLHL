@@ -10,16 +10,16 @@ const { user } = require('pg/lib/defaults');
 const router = express.Router();
 
 module.exports = (db) => {
-  router.post("/", (req, res) => {
-    console.log(req.body);
-    let query = `SELECT * FROM users WHERE users.name='${req.body.name}'`;
+  router.get("/:name", (req, res) => {
+    console.log(req.params.name);
+    let query = `SELECT * FROM users WHERE users.name='${req.params.name}';`;
     console.log(query);
     db.query(query)
       .then(data => {
         const users = data.rows[0];
         //res.json({ users });
         res.cookie('name', users.name);
-        res.send('Cookie Set');
+        res.redirect('/');
       })
       .catch(err => {
         res
