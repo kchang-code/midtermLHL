@@ -31,4 +31,4 @@ CREATE TABLE pins(
     user_id INT REFERENCES users(id) ON DELETE CASCADE,
     latitude FLOAT,
     longitude FLOAT
-);CREATE TABLE favourite_map
+);

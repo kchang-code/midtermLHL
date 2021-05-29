@@ -21,10 +21,12 @@ $(() => {
   });
 
   //login
-  $.ajax({
-    method: "POST",
-    url: "/login"
-  }).done((cookie) => {
-    console.log(cookie);
-  });
+  $('#login').on('a', function (event) {
+    $.ajax({
+      method: "POST",
+      url: "/login/Bob"
+    }).done((cookie) => {
+      console.log(cookie);
+    });
+  })
 });

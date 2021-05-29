@@ -10,13 +10,18 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
-    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
-    crossorigin=""/>
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+      integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+      crossorigin=""
+    />
 
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
-    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
-    crossorigin=""></script>
+    <script
+      src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+      integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+      crossorigin=""
+    ></script>
 
     <link
       rel="stylesheet"
@@ -24,130 +29,113 @@
       integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
       crossorigin="anonymous"
     />
-
   </head>
 
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-success">
       <a class="navbar-brand" href="/urls">WikiMap</a>
 
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
-        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <button
+        class="navbar-toggler"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-              <a class="nav-item nav-link" href="/login">Create New Map</a>
-            </div>
-            <div class="navbar-nav ml-auto">
-            <a class="nav-item nav-link ml-auto" href="/login">Login</a>
-            <a class="nav-item nav-link ml-auto" href="/login">Register</a>
-          </div>
+        <div class="navbar-nav">
+          <a class="nav-item nav-link" href="/login/">Create New Map</a>
+        </div>
+        <div class="navbar-nav ml-auto">
+          <a id='login' class="nav-item nav-link ml-auto" href="/login/Bob">Login</a>
+        </div>
       </div>
     </nav>
   </header>
 
   <body>
-
-
-
-
     <div id="mapid"></div>
+  </body>
 
-    <script>
-      const mymap = L.map('mapid').setView([51.505, -0.09], 13);
+  <script>
+    const mymap = L.map("mapid").setView([51.505, -0.09], 13);
 
-      const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+    const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
 
-      const  attribution =
+    const attribution =
       '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
 
-      const tiles = L.tileLayer(tileUrl, { attribution } )
+    const tiles = L.tileLayer(tileUrl, { attribution });
 
-      tiles.addTo(mymap);
+    tiles.addTo(mymap);
 
+    mymap.on("click", onMapClick);
 
+    function onMapClick(e) {
+      var geojsonFeature = {
+        type: "Feature",
+        properties: {},
+        geometry: {
+          type: "Point",
+          coordinates: [e.latlng.lat, e.latlng.lng],
+        },
+      };
 
+      var marker;
 
-mymap.on('click', onMapClick);
+      L.geoJson(geojsonFeature, {
+        pointToLayer: function (feature, latlng) {
+          marker = L.marker(e.latlng, {
+            title: "Resource Location",
+            alt: "Resource Location",
+            riseOnHover: true,
+            draggable: true,
+          }).bindPopup(
+            "<input type='button' value='Delete this marker' class='marker-delete-button'/><br><input type='button' value='Edit this marker' class='marker-edit-button'/>"
+          );
 
-function onMapClick(e) {
+          marker.on("popupopen", onPopupOpen);
 
-    var geojsonFeature = {
-
-        "type": "Feature",
-        "properties": {},
-        "geometry": {
-                "type": "Point",
-                "coordinates": [e.latlng.lat, e.latlng.lng]
-        }
+          return marker;
+        },
+      }).addTo(mymap);
     }
 
-    var marker;
+    function onPopupOpen() {
+      var tempMarker = this;
 
-    L.geoJson(geojsonFeature, {
-
-        pointToLayer: function(feature, latlng){
-
-            marker = L.marker(e.latlng, {
-
-                title: "Resource Location",
-                alt: "Resource Location",
-                riseOnHover: true,
-                draggable: true,
-
-            }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/><br> <input type='button' value='Edit this marker' class='marker-edit-button'/>")
-            ;
-
-            marker.on("popupopen", onPopupOpen);
-
-            return marker;
-        }
-    }).addTo(mymap);
+      // To remove marker on click of delete button in the popup of marker
+      $(".marker-delete-button:visible").click(function () {
+        mymap.removeLayer(tempMarker);
+      });
 
 
-}
-
-
-function onPopupOpen() {
-
-var tempMarker = this;
-
-// To remove marker on click of delete button in the popup of marker
-$(".marker-delete-button:visible").click(function () {
-    mymap.removeLayer(tempMarker);
-});
-
-// // edit marker
-// $(".marker-edit-button").click(function () {
-//     mymap.addLayer('<form method="POST"><label for="title">Title</label><br><input type="text" id = "title");
-// });
-
-
-}
-
-// getting all the markers at once
-function getAllMarkers() {
-
-var allMarkersObjArray = []; // for marker objects
-var allMarkersGeoJsonArray = []; // for readable geoJson markers
-
-$.each(mymap._layers, function (ml) {
-
-    if (mymap._layers[ml].feature) {
-
-        allMarkersObjArray.push(this)
-        allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
     }
-})
 
-console.log(allMarkersObjArray);
-}
+    $(".marker-edit-button").click(function () {
 
-// any html element such as button, div to call the function()
-$(".get-markers").on("click", getAllMarkers);
+    });
 
-    </script>
+    // getting all the markers at once
+    function getAllMarkers() {
+      var allMarkersObjArray = []; // for marker objects
+      var allMarkersGeoJsonArray = []; // for readable geoJson markers
 
-  </body>
+      $.each(mymap._layers, function (ml) {
+        if (mymap._layers[ml].feature) {
+          allMarkersObjArray.push(this);
+          allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()));
+        }
+      });
+
+      console.log(allMarkersObjArray);
+    }
+
+    // any html element such as button, div to call the function()
+    $(".get-markers").on("click", getAllMarkers);
+  </script>
 </html>
