@@ -38,33 +38,6 @@
       tiles.addTo(mymap);
 
 
-// SHOWS LONG AND LAT WHEREVER CLICKED
-// var popup = L.popup();
-
-// function onMapClick(e) {
-//   popup
-//   .setLatLng(e.latlng)
-//   .setContent("You clicked the map at " + e.latlng.toString())
-//   .openOn(mymap);
-//   console.log(e.latlng.toString())
-// }
-
-// mymap.on('click', onMapClick);
-
-
-// function addMarker(e){
-// // Add marker to map at click location; add popup window
-// var newMarker = new L.marker(e.latlng).addTo(mymap);
-// newMarker.bindPopup("THIS IS JUST FILLER FOR POPUP").openPopup();
-// };
-
-// mymap.on('click', addMarker);
-
-// function removeMarker(e) {
-//   let markerGone = L.marker(e.latlng).remove(mymap);
-// };
-// mymap.on('click', removeMarker);
-
 
 
 mymap.on('click', onMapClick);
@@ -102,6 +75,38 @@ function onMapClick(e) {
         }
     }).addTo(mymap);
 }
+
+
+function onPopupOpen() {
+
+var tempMarker = this;
+
+// To remove marker on click of delete button in the popup of marker
+$(".marker-delete-button:visible").click(function () {
+    mymap.removeLayer(tempMarker);
+});
+}
+
+// getting all the markers at once
+function getAllMarkers() {
+
+var allMarkersObjArray = []; // for marker objects
+var allMarkersGeoJsonArray = []; // for readable geoJson markers
+
+$.each(mymap._layers, function (ml) {
+
+    if (mymap._layers[ml].feature) {
+
+        allMarkersObjArray.push(this)
+        allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+    }
+})
+
+console.log(allMarkersObjArray);
+}
+
+// any html element such as button, div to call the function()
+$(".get-markers").on("click", getAllMarkers);
 
     </script>
 
