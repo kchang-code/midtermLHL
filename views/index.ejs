@@ -67,7 +67,8 @@ function onMapClick(e) {
                 riseOnHover: true,
                 draggable: true,
 
-            }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/>");
+            }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/><br> <input type='button' value='Edit this marker' class='marker-edit-button'/>")
+            ;
 
             marker.on("popupopen", onPopupOpen);
 
