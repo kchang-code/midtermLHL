@@ -1,32 +1,37 @@
-$(() => {
 
-  //this is sample test
-  $.ajax({
-    method: "GET",
-    url: "/api/users"
-  }).done((users) => {
-    for (user of users) {
-      $("<div>").text(user.name).appendTo($("body"));
+  const renderMaps = function (tweetData) {
+    for (const tweet of tweetData) {
+      let $tweet = createTweetElement(tweet);
+      $(".tweet-container").prepend($tweet);
     }
-  });;
+  };
 
-  //request to read map
-  $.ajax({
-    method: "GET",
-    url: "/maps"
-  }).done((maps) => {
-    for (map of maps) {
-      $("<div>").text(map).appendTo($("body"));
-    }
+  const createMaps = function () {
+    const $map = `
+        <article>
+          <header>
+              <div class="map-container">
+                <a href="">Map name</a>
+            </div>
+          </footer>
+        </article>
+        `;
+    return $map;
+  };
+
+  $(document).ready(() => {
+    //request to read map
+    console.log('im here');
+    $.ajax({
+      method: "GET",
+      url: "/maps"
+    }).done((maps) => {
+      for (map of maps) {
+        $("<div>").text(map).appendTo($("body"));
+      }
+    });
+
   });
 
-  //login
-  $('#login').on('a', function (event) {
-    $.ajax({
-      method: "POST",
-      url: "/login/Bob"
-    }).done((cookie) => {
-      console.log(cookie);
-    });
-  })
-});
+
+
