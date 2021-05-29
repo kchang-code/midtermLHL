@@ -6,8 +6,8 @@ VALUES
 
 INSERT INTO maps (name,description)
 VALUES
-('Vancouver weather','rainy'),
-('Edmonton weather','sunny');
+('Vancouver','rainy'),
+('Edmonton','sunny');
 
 INSERT INTO favourite_maps (user_id,map_id)
 VALUES
