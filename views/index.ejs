@@ -18,14 +18,39 @@
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
 
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+      integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+      crossorigin="anonymous"
+    />
+
   </head>
 
-  <body>
-    <nav>
-      <div container="class"></div>
+  <header>
+    <nav class="navbar navbar-expand-md navbar-dark bg-success">
+      <a class="navbar-brand" href="/urls">WikiMap</a>
 
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup"
+        aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+            <div class="navbar-nav">
+              <a class="nav-item nav-link" href="/login">Create New Map</a>
+            </div>
+            <div class="navbar-nav ml-auto">
+            <a class="nav-item nav-link ml-auto" href="/login">Login</a>
+            <a class="nav-item nav-link ml-auto" href="/login">Register</a>
+          </div>
       </div>
     </nav>
+  </header>
+
+  <body>
+
+
+
 
     <div id="mapid"></div>
 
@@ -71,14 +96,15 @@ function onMapClick(e) {
                 riseOnHover: true,
                 draggable: true,
 
-            }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/>");
+            }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/><br> <input type='button' value='Edit this marker' class='marker-edit-button'/>")
+            ;
 
             marker.on("popupopen", onPopupOpen);
 
             return marker;
         }
     }).addTo(mymap);
-    
+
 
 }
 
@@ -91,6 +117,13 @@ var tempMarker = this;
 $(".marker-delete-button:visible").click(function () {
     mymap.removeLayer(tempMarker);
 });
+
+// // edit marker
+// $(".marker-edit-button").click(function () {
+//     mymap.addLayer('<form method="POST"><label for="title">Title</label><br><input type="text" id = "title");
+// });
+
+
 }
 
 // getting all the markers at once
