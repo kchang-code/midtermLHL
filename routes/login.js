@@ -18,8 +18,8 @@ module.exports = (db) => {
       .then(data => {
         const users = data.rows[0];
         //res.json({ users });
-        res.cookie("name", users.name);
-        res.send("Cookie Set");
+        res.cookie('name', users.name);
+        res.send('Cookie Set');
       })
       .catch(err => {
         res

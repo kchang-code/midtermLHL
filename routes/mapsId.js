@@ -23,6 +23,20 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  router.post("/", (req, res) => {
+    let query = `INSERT INTO maps (name,description) VALUES ('${req.body.name}','${req.body.description}');`;
+    console.log(query);
+    db.query(query)
+      .then(data => {
+        res.send('data created');
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
   return router;
 };
 
