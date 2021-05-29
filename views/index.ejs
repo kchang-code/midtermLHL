@@ -9,16 +9,110 @@
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script type="text/javascript" src="/scripts/app.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+
   </head>
 
   <body>
     <nav>
-      <div class="container">
-        <nav>
-          <span>Wiki Maps</span>
-          <h3>Logged in as <% %></h3>
-        </nav>
+      <div container="class"></div>
+        
       </div>
     </nav>
+
+    <div id="mapid"></div>
+
+    <script>
+      const mymap = L.map('mapid').setView([51.505, -0.09], 13);
+
+      const tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+
+      const  attribution =
+      '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+
+      const tiles = L.tileLayer(tileUrl, { attribution } )
+
+      tiles.addTo(mymap);
+
+
+
+
+mymap.on('click', onMapClick);
+
+function onMapClick(e) {
+
+    var geojsonFeature = {
+
+        "type": "Feature",
+        "properties": {},
+        "geometry": {
+                "type": "Point",
+                "coordinates": [e.latlng.lat, e.latlng.lng]
+        }
+    }
+
+    var marker;
+
+    L.geoJson(geojsonFeature, {
+
+        pointToLayer: function(feature, latlng){
+
+            marker = L.marker(e.latlng, {
+
+                title: "Resource Location",
+                alt: "Resource Location",
+                riseOnHover: true,
+                draggable: true,
+
+            }).bindPopup("<input type='button' value='Delete this marker' class='marker-delete-button'/>");
+
+            marker.on("popupopen", onPopupOpen);
+
+            return marker;
+        }
+    }).addTo(mymap);
+}
+
+
+function onPopupOpen() {
+
+var tempMarker = this;
+
+// To remove marker on click of delete button in the popup of marker
+$(".marker-delete-button:visible").click(function () {
+    mymap.removeLayer(tempMarker);
+});
+}
+
+// getting all the markers at once
+function getAllMarkers() {
+
+var allMarkersObjArray = []; // for marker objects
+var allMarkersGeoJsonArray = []; // for readable geoJson markers
+
+$.each(mymap._layers, function (ml) {
+
+    if (mymap._layers[ml].feature) {
+
+        allMarkersObjArray.push(this)
+        allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()))
+    }
+})
+
+console.log(allMarkersObjArray);
+}
+
+// any html element such as button, div to call the function()
+$(".get-markers").on("click", getAllMarkers);
+
+    </script>
+
   </body>
 </html>
