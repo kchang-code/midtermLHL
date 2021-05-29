@@ -1,3 +1,7 @@
+-- Drop and recreate Users table (Example)
+-- CREATE DATABASE midtermProject;
+-- \c midtermProject
+
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS maps CASCADE;
 DROP TABLE IF EXISTS favourite_maps CASCADE;
@@ -25,6 +29,6 @@ CREATE TABLE pins(
     image VARCHAR(225),
     map_id INT REFERENCES maps(id) ON DELETE CASCADE,
     user_id INT REFERENCES users(id) ON DELETE CASCADE,
-    Latitude FLOAT,
-    Longitude FLOAT
+    latitude FLOAT,
+    longitude FLOAT
 );
