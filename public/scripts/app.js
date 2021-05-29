@@ -1,4 +1,6 @@
 $(() => {
+
+  //this is sample test
   $.ajax({
     method: "GET",
     url: "/api/users"
@@ -7,6 +9,8 @@ $(() => {
       $("<div>").text(user.name).appendTo($("body"));
     }
   });;
+
+  //request to read map
   $.ajax({
     method: "GET",
     url: "/maps"
@@ -15,18 +19,12 @@ $(() => {
       $("<div>").text(map).appendTo($("body"));
     }
   });
+
+  //login
+  $.ajax({
+    method: "POST",
+    url: "/login"
+  }).done((cookie) => {
+    console.log(cookie);
+  });
 });
-
-// router.post('/properties', (req, res) => {
-//   const userId = req.session.userId;
-//   database.addProperty({...req.body, owner_id: userId})
-//     .then(property => {
-//       res.send(property);
-//     })
-//     .catch(e => {
-//       console.error(e);
-//       res.send(e)
-//     });
-// });
-
-// return router;
