@@ -66,6 +66,11 @@
       <div>
         <input id="description-input" type="text"><br>
       </div>
+      <div>
+        <input type="file"
+       id="image-input"
+       accept="image/png, image/jpeg">
+      </div>
       <button id="button-submit" type="button">Save Changes</button>
     </form>
   </section>
@@ -85,8 +90,8 @@
 
 
 
-
-  <!-- <script>
+<!-- GOOGLE API MAPS VERSION -->
+  <script>
 
     function initMap() {
       const options = {
@@ -140,7 +145,7 @@
   </script>
 
 <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCC_itgeiXrrCNG50bae3QcQ5rM9fdGd68&callback=initMap"
-type="text/javascript"></script> -->
+type="text/javascript"></script>
 
 <!-- API KEY
 AIzaSyCC_itgeiXrrCNG50bae3QcQ5rM9fdGd68 -->
@@ -149,13 +154,18 @@ AIzaSyCC_itgeiXrrCNG50bae3QcQ5rM9fdGd68 -->
 
 
 <!-- LEAFLET VERSION -->
-<script>
+<!-- <script>
+
+
+  //  NEW MAP
   const mymap = L.map("mapid").setView([51.505, -0.09], 13);
   const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const attribution =
   '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   const tiles = L.tileLayer(tileUrl, { attribution });
   tiles.addTo(mymap);
+
+
 
 
 
@@ -180,22 +190,22 @@ function onPopupOpen() {
       mymap.removeLayer(tempMarker);
     });
   }
-
-
-
-
 </script>
 
 
-<div id="mapid"></div>
-
-
-
-
-
+<div id="mapid"></div> -->
 
 
 </body>
+
+
+
+
+
+
+
+
+
 
 <!-- <script>
 
