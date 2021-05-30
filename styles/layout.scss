@@ -1,7 +1,7 @@
 // See: https://sass-lang.com/
 
 body {
-  background-color: #EEE;
+  background-color: #eee;
 
   h1 {
     color: #244751;
@@ -10,5 +10,32 @@ body {
 
 #mapid {
   height: 480px;
-  width: 500;
- }
+  width: 100%;
+}
+
+.fas fa-heart {
+  color: red;
+}
+
+#user-file {
+  border-style: 200px, solid, black;
+}
+
+#mapContainer {
+  display: flex;
+  flex-direction: rows;
+  justify-content: space-around;
+  border: solid;
+}
+
+.square-view-all-maps {
+  border: solid;
+}
+
+.square-fav-maps {
+  border: solid;
+}
+
+.square-user-contributions {
+  border: solid;
+}
