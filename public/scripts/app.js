@@ -29,13 +29,23 @@ $(document).ready(() => {
     for (const i in maps) {
       console.log(typeof maps[i]);
       for (const a in maps[i]) {
-        $("<div id='user-file'>").html('<div>' + maps[i][a].name + '</div><div><i class="fas fa-heart fa-lg"></i></div>').appendTo($(".square-view-all-maps"));
+        $("<div id='user-file'>").html('<div>' + maps[i][a].name + '</div><div><input type="button" name="'+maps[i][a].name+'" class="fas fa-heart fa-lg"></div>').appendTo($(".square-view-all-maps"));
       }
     }
   }
   );
 
 })
+
+$('i').on('click',(favourite_maps) =>{
+  console.log('click!');
+  $.ajax({
+    method:"POST",
+    url: "/favourites"
+  }).done((favorite_maps) => {
+    console.log('http call success');
+    })
+  })
 //
 $.ajax({
   method: "GET",
