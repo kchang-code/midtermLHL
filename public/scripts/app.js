@@ -57,8 +57,12 @@ $.ajax({
       $("<div>").text(maps[i][a].name).appendTo($("#view-all-maps"));
     }
   }
+<<<<<<< HEAD
 
   });
 
 
 
+=======
+});
+>>>>>>> 9d291cc940f8ef427af7a238b7b1e4278b19b4f9
