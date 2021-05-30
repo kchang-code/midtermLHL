@@ -29,10 +29,11 @@ $(document).ready(() => {
     for (const i in maps) {
       console.log(typeof maps[i]);
       for (const a in maps[i]) {
-        $("<div id='user-file'>").text(maps[i][a].name).appendTo($(".square-view-all-maps"));
+        $("<div id='user-file'>").html('<div>' + maps[i][a].name + '</div><div><i class="fas fa-heart fa-lg"></i></div>').appendTo($(".square-view-all-maps"));
       }
     }
-  });
+  }
+  );
 
   //
   $.ajax({
@@ -48,6 +49,7 @@ $(document).ready(() => {
   });
 
 });
+
 
 
 

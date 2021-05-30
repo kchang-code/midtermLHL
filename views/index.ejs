@@ -7,6 +7,9 @@
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src='/scripts/app.js'></script>
@@ -42,15 +45,32 @@
 </header>
 
 <body>
-  <section>
-    <div id="mapid"></div>
-    <i class="fas fa-heart"></i>
-    </div>
-  </section>
+  <section id="top">
 
+    <div id="mapid"></div>
+
+    </div id="form">
+    <form method="POST">
+
+      <div>
+        <label for="title-input">Title:</label>
+      </div>
+      <div>
+        <input id="title-input" type="text"><br>
+      </div>
+      <div>
+        <label for="description-input">Description:</label>
+      </div>
+      <div>
+        <input id="description-input" type="text"><br>
+      </div>
+      <button id="button-submit" type="button">Save Changes</button>
+    </form>
+  </section>
   <section id="mapContainer">
     <div class="square-view-all-maps">
       <h3 class="heading">All Maps</h3>
+      <!-- form -->
     </div>
     <div class="square-fav-maps">
       <h3 class="heading">Favorite Maps</h3>
@@ -59,6 +79,10 @@
       <h3 class="heading">square-user-contributions</h3>
     </div>
   </section>
+
+
+
+
 </body>
 
 <script>

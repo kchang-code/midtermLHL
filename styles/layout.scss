@@ -10,22 +10,37 @@ body {
 
 #mapid {
   height: 480px;
-  width: 100%;
+  width: 60%;
 }
 
-.fas fa-heart {
-  color: red;
+#top {
+  display: flex;
+  flex-direction: row;
+}
+#form {
+  display: flex;
+  width: 40%;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fa-heart:hover {
+  color: blue;
 }
 
 #user-file {
   border-style: 200px, solid, black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 }
 
 #mapContainer {
   display: flex;
   flex-direction: rows;
   justify-content: space-around;
-  border: solid;
+  // border: solid;
 }
 
 .square-view-all-maps {
