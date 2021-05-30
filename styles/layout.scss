@@ -54,3 +54,10 @@ body {
 .square-user-contributions {
   border: solid;
 }
+
+
+#popupButtons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}

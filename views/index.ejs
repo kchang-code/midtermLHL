@@ -113,7 +113,7 @@
 
 let newMarker = new L.marker(e.latlng).addTo(mymap);
 }
-marker.bindPopup("<input type='button' value='Delete' class='deleteButton'/><br><input type='button' value='Edit' class='editButton'/>").openPopup();
+marker.bindPopup("<div id='popupTitle'></div><div id='popupImage'></div><div id='popupDescription'></div><br><div id='popupButtons'><input type='button' value='Edit' class='editButton'/><br><input type='button' value='Delete' class='deleteButton'/></div>").openPopup();
 marker.on("popupopen", onPopupOpen);
 return marker;
 });
