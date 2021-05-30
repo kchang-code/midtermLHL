@@ -51,7 +51,7 @@
 
     <div id="mapid"></div>
 
-    </div id="form">
+    </div id="form-new-map">
     <form method="POST">
       <h4>Create a new map</h4>
 
@@ -67,13 +67,27 @@
       <div>
         <input id="description-input" type="text"><br>
       </div>
-      <div>
-        <input type="file"
-       id="image-input"
-       accept="image/png, image/jpeg">
-      </div>
       <button id="button-submit" type="button">Save Changes</button>
     </form>
+  </div id="form-edit-map">
+  <form method="POST">
+    <h4>Edit Map</h4>
+    <div>
+      <label for="title-input">Title:</label>
+    </div>
+    <div>
+      <input id="title-input" type="text"><br>
+    </div>
+    <div>
+      <label for="description-input">Description:</label>
+    </div>
+    <div>
+      <input id="description-input" type="text"><br>
+    </div>
+    <button id="button-submit" type="button">Save Changes</button>
+  </form>
+</section>
+
   </section>
   <section id="mapContainer">
     <div class="square-view-all-maps">
