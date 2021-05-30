@@ -55,5 +55,21 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  //add map to fav maps
+  router.post('/favorites', (req, res) => {
+    const userId = req.user.name;
+    const query = `INSERT INTO favorite_maps (user_id, map_id) VALUES ($1, $2) RETURNING *;`;
+    const values = [userId, map_id];
+    db.query(query, values)
+      .then(data => {
+        res.json({data});
+      })
+      .catch(err => {
+        res.send(err);
+      });
+  });
+
+
   return router;
 };
