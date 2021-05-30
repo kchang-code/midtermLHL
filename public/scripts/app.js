@@ -1,13 +1,13 @@
 
-  const renderMaps = function (tweetData) {
-    for (const tweet of tweetData) {
-      let $tweet = createTweetElement(tweet);
-      $(".tweet-container").prepend($tweet);
-    }
-  };
+const renderMaps = function (tweetData) {
+  for (const tweet of tweetData) {
+    let $tweet = createTweetElement(tweet);
+    $(".tweet-container").prepend($tweet);
+  }
+};
 
-  const createMaps = function () {
-    const $map = `
+const createMaps = function () {
+  const $map = `
         <article>
           <header>
               <div class="map-container">
@@ -16,22 +16,41 @@
           </footer>
         </article>
         `;
-    return $map;
-  };
+  return $map;
+};
 
-  $(document).ready(() => {
-    //request to read map
-    console.log('im here');
-    $.ajax({
-      method: "GET",
-      url: "/maps"
-    }).done((maps) => {
-      for (map of maps) {
-        $("<div>").text(map).appendTo($("body"));
+$(document).ready(() => {
+
+  //view all maps
+  $.ajax({
+    method: "GET",
+    url: "/maps"
+  }).done((maps) => {
+    for (const i in maps) {
+      console.log(typeof maps[i]);
+      for (const a in maps[i]) {
+        $("<div id='user-file'>").html('<div>' + maps[i][a].name + '</div><div><i class="fas fa-heart fa-lg"></i></div>').appendTo($(".square-view-all-maps"));
       }
-    });
+    }
+  }
+  );
 
-  });
+})
+//
+$.ajax({
+  method: "GET",
+  url: "/maps"
+}).done((maps) => {
+  for (const i in maps) {
+    console.log(typeof maps[i]);
+    for (const a in maps[i]) {
+      $("<div>").text(maps[i][a].name).appendTo($("#view-all-maps"));
+    }
+  }
+});
+
+});
+
 
 
 
