@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<<<<<<< HEAD
-  <body>
-    <div id="mapid"></div>
-  </body>
-=======
 <head>
   <title>Home Page</title>
 
   <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
   <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
   <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" />
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src='/scripts/app.js'></script>
@@ -23,7 +21,6 @@
   <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
     integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
     crossorigin=""></script>
-
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
     integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous" />
 </head>
@@ -46,14 +43,46 @@
     </div>
   </nav>
 </header>
->>>>>>> e8b622d2c6d50ddeda6480b16ba63db6fbd96e12
 
 <body>
-  <div id="mapid"></div>
-  <div class="view-all-maps">
-    <div class="map-container"></div>
+  <section id="top">
 
-  </div>
+    <div id="mapid"></div>
+
+    </div id="form">
+    <form method="POST">
+
+      <div>
+        <label for="title-input">Title:</label>
+      </div>
+      <div>
+        <input id="title-input" type="text"><br>
+      </div>
+      <div>
+        <label for="description-input">Description:</label>
+      </div>
+      <div>
+        <input id="description-input" type="text"><br>
+      </div>
+      <button id="button-submit" type="button">Save Changes</button>
+    </form>
+  </section>
+  <section id="mapContainer">
+    <div class="square-view-all-maps">
+      <h3 class="heading">All Maps</h3>
+      <!-- form -->
+    </div>
+    <div class="square-fav-maps">
+      <h3 class="heading">Favorite Maps</h3>
+    </div>
+    <div class="square-user-contributions">
+      <h3 class="heading">square-user-contributions</h3>
+    </div>
+  </section>
+
+
+
+
 </body>
 
 <script>
@@ -111,29 +140,6 @@
 
   }
 
-<<<<<<< HEAD
-    });
-
-
-    // getting all the markers at once
-    function getAllMarkers() {
-      var allMarkersObjArray = []; // for marker objects
-      var allMarkersGeoJsonArray = []; // for readable geoJson markers
-
-      $.each(mymap._layers, function (ml) {
-        if (mymap._layers[ml].feature) {
-          allMarkersObjArray.push(this);
-          allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()));
-        }
-      });
-
-      console.log(allMarkersObjArray);
-    }
-
-    // any html element such as button, div to call the function()
-    $(".get-markers").on("click", getAllMarkers);
-  </script>
-=======
   // getting all the markers at once
   function getAllMarkers() {
     var allMarkersObjArray = []; // for marker objects
@@ -150,7 +156,6 @@
   }
 </script>
 
->>>>>>> e8b622d2c6d50ddeda6480b16ba63db6fbd96e12
 </html>
 
 
