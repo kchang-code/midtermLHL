@@ -50,27 +50,25 @@
     <div id="mapid"></div>
 
     </div id="form">
-    <form method="POST">
-
+    <form action="/maps" method="POST" id="map-form">
       <div>
         <label for="title-input">Title:</label>
       </div>
       <div>
-        <input id="title-input" type="text"><br>
+        <input id="title-input" type="text" name="name"><br>
       </div>
       <div>
         <label for="description-input">Description:</label>
       </div>
       <div>
-        <input id="description-input" type="text"><br>
+        <input id="description-input" type="text" name='description'><br>
       </div>
-      <button id="button-submit" type="button">Save Changes</button>
+      <button id="button-submit" type="submit">add</button>
     </form>
   </section>
   <section id="mapContainer">
     <div class="square-view-all-maps">
       <h3 class="heading">All Maps</h3>
-      <!-- form -->
     </div>
     <div class="square-fav-maps">
       <h3 class="heading">Favorite Maps</h3>
@@ -86,74 +84,32 @@
 </body>
 
 <script>
+  //  NEW MAP
   const mymap = L.map("mapid").setView([51.505, -0.09], 13);
-
   const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-
   const attribution =
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-
   const tiles = L.tileLayer(tileUrl, { attribution });
-
   tiles.addTo(mymap);
-
-  mymap.on("click", onMapClick);
-
-  function onMapClick(e) {
-    var geojsonFeature = {
-      type: "Feature",
-      properties: {},
-      geometry: {
-        type: "Point",
-        coordinates: [e.latlng.lat, e.latlng.lng],
-      },
-    };
-
-    var marker;
-
-    L.geoJson(geojsonFeature, {
-      pointToLayer: function (feature, latlng) {
-        marker = L.marker(e.latlng, {
-          title: "Resource Location",
-          alt: "Resource Location",
-          riseOnHover: true,
-          draggable: true,
-        }).bindPopup(
-          "<input type='button' value='Delete this marker' class='marker-delete-button'/><br><input type='button' value='Edit this marker' class='marker-edit-button'/>"
-        );
-
-        marker.on("popupopen", onPopupOpen);
-
-        return marker;
-      },
-    }).addTo(mymap);
-  }
-
+  // CREATE MARKER WHEREVER YOU CLICK
+  mymap.on('click', function (e) {
+    let marker = new L.marker(e.latlng).addTo(mymap);
+    function addMarker(e) {
+      let newMarker = new L.marker(e.latlng).addTo(mymap);
+    }
+    marker.bindPopup("<input type='button' value='Delete' class='deleteButton'/><br><input type='button' value='Edit' class='editButton'/>").openPopup();
+    marker.on("popupopen", onPopupOpen);
+    return marker;
+  });
+  // DELETE BUTTON FUNCTIONALITY
   function onPopupOpen() {
-    var tempMarker = this;
-
+    let tempMarker = this;
     // To remove marker on click of delete button in the popup of marker
-    $(".marker-delete-button:visible").click(function () {
+    $(".deleteButton:visible").click(function () {
       mymap.removeLayer(tempMarker);
     });
-
-
-  }
-
-  // getting all the markers at once
-  function getAllMarkers() {
-    var allMarkersObjArray = []; // for marker objects
-    var allMarkersGeoJsonArray = []; // for readable geoJson markers
-
-    $.each(mymap._layers, function (ml) {
-      if (mymap._layers[ml].feature) {
-        allMarkersObjArray.push(this);
-        allMarkersGeoJsonArray.push(JSON.stringify(this.toGeoJSON()));
-      }
-    });
-
-    console.log(allMarkersObjArray);
   }
 </script>
+
 
 </html>
