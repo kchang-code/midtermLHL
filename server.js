@@ -37,12 +37,14 @@ app.use(express.static("public"));
 const pinsRoutes = require("./routes/pins");
 const mapsRoutes = require("./routes/maps");
 const fakeLogin = require('./routes/login');
+const favoriteMaps = require('./routes/favoriteMaps');
 
 // Mount all resource routes
 // Note: Feel free to replace the example routes below with your own
 app.use("/pins", pinsRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/login", fakeLogin(db));
+app.use("/favorites", favoriteMaps(db));
 
 // Note: mount other resources here, using the same pattern above
 
