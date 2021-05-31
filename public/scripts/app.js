@@ -48,6 +48,7 @@ const viewSingleMap = (result) => {
   console.log(result.maps[0].description);
   const $map = `
     <div>
+      <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
       <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
     </div>
     <div>
@@ -92,7 +93,7 @@ const createNewPopUps = (maps) => {
 $(document).ready(() => {
 
 
-  //maps api starts here
+  //*****maps api starts here*****
   //  NEW MAP
   const mymap = L.map("mapid").setView([51.505, -0.09], 13);
   const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
@@ -118,7 +119,7 @@ $(document).ready(() => {
   }
 
 
-  //ajax call starts here
+  //*****ajax call starts here*****
   //login is handle by the html
 
   //view all maps
@@ -149,12 +150,12 @@ $(document).ready(() => {
   //edit map
   $('#edit-map').on('click', '.editButton', (event) => {
     event.preventDefault();
-    console.log($('#map-edit-name').val());
-    console.log($('#map-edit-description').val());
+    let mapData = { id: $('#map-edit-id').val(), name: $('#map-edit-name').val(), description: $('#map-edit-description').val() };
+    // let passData = JSON.parse(mapData);
     $.ajax({
-      method: 'GET',
+      method: 'PUT',
       url: `/maps/edit`,
-      data: ``
+      data: mapData
     })
       .then((result) => {
       });

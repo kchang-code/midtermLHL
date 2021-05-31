@@ -11,7 +11,7 @@ const router = express.Router();
 module.exports = (db) => {
   //read all maps
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM maps`;
+    let query = `SELECT * FROM maps ORDER BY name;`;
     console.log(query);
     db.query(query)
       .then(data => {
@@ -75,18 +75,14 @@ module.exports = (db) => {
       });
   });
 
-  //edit
+  //edit  maps.descripton='${req.body.description}',
   router.put("/edit", (req, res) => {
-    let query = `UPDATE  maps
-                SET
-                maps.name='${req.body.name}',
-                maps.descripton='${req.body.description}',
-                where maps.id='${req.body.id}'`;
+    let query = `update maps set name='${req.body.name}', description='${req.body.description}' where id='${req.body.id}';`;
     console.log(req.body);
     console.log(query);
     db.query(query)
       .then(data => {
-        // res.send('data created');
+        res.send('data created');
       })
       .catch(err => {
         res
