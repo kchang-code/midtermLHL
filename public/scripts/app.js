@@ -1,81 +1,9 @@
-const viewAllMaps = () => {
-  //view all maps
-  $.ajax({
-    method: "GET",
-    url: "/maps"
-  }).done((maps) => {
-    for (const i in maps) {
-      console.log(typeof maps[i]);
-      for (const a in maps[i]) {
-        $("<div id='user-file'>").html('<div>' + maps[i][a].name + '</div><div><input type="button" name="'+maps[i][a].name+'" class="fas fa-heart fa-lg"></div>').appendTo($(".square-view-all-maps"));
-      }
-    }
-  }
-  );
-}
-
-const addMap = (req) => {
-  $.ajax({
-    method: 'POST',
-    url: '/maps',
-    data: $(req).serialize()
-  })
-    .then(() => {
-      console.log('form submitted');
-    });
-}
 
 
-$(document).ready(() => {
+
+$(document).ready(() => {})
 
   //login is handle by the html
 
   //view all maps
-  viewAllMaps();
 
-  //add maps
-  $('#map-form').on('submit', function (event) {
-    event.preventDefault();
-    //**************** error handling *********
-    //****************************************
-    addMap(this);
-    viewAllMaps();
-    $('#title-input').val('');
-    $('#description-input').val('');
-  });
-
-
-
-  })
-
-
-
-
-
-
-<<<<<<< HEAD
-})
-
-$('i').on('click',(favourite_maps) =>{
-  console.log('click!');
-  $.ajax({
-    method:"POST",
-    url: "/favourites"
-  }).done((favorite_maps) => {
-    console.log('http call success');
-    })
-  })
-//
-$.ajax({
-  method: "GET",
-  url: "/maps"
-}).done((maps) => {
-  for (const i in maps) {
-    console.log(typeof maps[i]);
-    for (const a in maps[i]) {
-      $("<div>").text(maps[i][a].name).appendTo($("#view-all-maps"));
-    }
-  }
-});
-=======
->>>>>>> eaf65516802b83b49495001f6947d30bf27d67fb
