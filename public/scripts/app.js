@@ -2,12 +2,11 @@ const createMaps = (maps) => {
   for (const i in maps) {
     for (const a in maps[i]) {
       const $maps = `
-      <div>${maps[i][a].name}</div>
-      <div>
-      <i class="fas fa-heart fa-lg"></i>
-      </div>
+        <input  type="submit" class="map-name" name="name" value="${maps[i][a].name}">
+        <i class="fas fa-heart fa-lg"></i>
+
       `;
-      $("<div id='user-file'>").html($maps).appendTo($(".square-view-all-maps"));
+      $("<form id='user-file'>").html($maps).appendTo($(".square-view-all-maps"));
     }
   }
 }
@@ -59,6 +58,26 @@ $(document).ready(() => {
     viewLatestMaps();
     $('#title-input').val('');
     $('#description-input').val('');
+  });
+
+  //edit map
+  $('.square-view-all-maps').on('click', '.map-name', (event) => {
+    event.preventDefault();
+    //**************** error handling *********
+    //****************************************
+    let mapName = $(event.target).val();
+    console.log($(event.target).val());
+
+    $.ajax({
+      method: 'GET',
+      url: `/maps/${mapName}`,
+    })
+      .then((result) => {
+        $('#edit-map').empty('');
+        // console.log(result.maps[0].name);
+        $("<div>").html(`name: ${result.maps[0].name}`).appendTo($("#edit-map"));
+        $("<div>").html(`description: ${result.maps[0].description}`).appendTo($("#edit-map"));
+      });
   });
 
 })

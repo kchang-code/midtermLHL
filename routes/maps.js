@@ -74,5 +74,25 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+  //edit
+  router.put("/edit", (req, res) => {
+    let query = `UPDATE  maps
+                SET
+                maps.name='${req.body.name}',
+                maps.descripton='${req.body.description}',
+                where maps.id='${req.body.id}'`;
+    console.log(req.body);
+    console.log(query);
+    db.query(query)
+      .then(data => {
+        // res.send('data created');
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
   return router;
 };

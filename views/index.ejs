@@ -48,23 +48,29 @@
   <section id="top">
 
     <div id="mapid"></div>
-
-    </div id="form">
-    <form action="/maps" method="POST" id="map-form">
-      <div>
-        <label for="title-input">Title:</label>
+    <div id='top-form'>
+      <div id="form">
+        <form action="/maps" method="POST" id="map-form">
+          <div><label for="title-input">Title:</label></div>
+          <div><input id="title-input" type="text" name="name"><br></div>
+          <div><label for="description-input">Description:</label></div>
+          <div><input id="description-input" type="text" name='description'><br></div>
+          <button id="button-submit" type="submit">add</button>
+        </form>
       </div>
       <div>
-        <input id="title-input" type="text" name="name"><br>
+        <form method="POST">
+          <label>Title:</label><br>
+          <input id="name-input" type="text" name='name'><br>
+          <label>Description:</label><br>
+          <input id="description-input" type="text" name='description'><br>
+          <input type='submit' value='Edit' class='editButton' />
+        </form>
       </div>
-      <div>
-        <label for="description-input">Description:</label>
+      <div id="edit-map">
+        <!-- this div is used for testing showing single maps -->
       </div>
-      <div>
-        <input id="description-input" type="text" name='description'><br>
-      </div>
-      <button id="button-submit" type="submit">add</button>
-    </form>
+    </div>
   </section>
   <section id="mapContainer">
     <div class="square-view-all-maps">
@@ -77,6 +83,7 @@
       <h3 class="heading">square-user-contributions</h3>
     </div>
   </section>
+
 
 
 
@@ -94,15 +101,13 @@
   // CREATE MARKER WHEREVER YOU CLICK
   mymap.on('click', function (e) {
     let marker = new L.marker(e.latlng).addTo(mymap);
-    function addMarker(e) {
-      let newMarker = new L.marker(e.latlng).addTo(mymap);
-    }
     marker.bindPopup("<input type='button' value='Delete' class='deleteButton'/><br><input type='button' value='Edit' class='editButton'/>").openPopup();
     marker.on("popupopen", onPopupOpen);
     return marker;
   });
   // DELETE BUTTON FUNCTIONALITY
   function onPopupOpen() {
+    console.log('im here');
     let tempMarker = this;
     // To remove marker on click of delete button in the popup of marker
     $(".deleteButton:visible").click(function () {
