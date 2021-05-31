@@ -4,9 +4,8 @@ const createMaps = (maps) => {
       const $maps = `
         <input  type="submit" class="map-name" name="name" value="${maps[i][a].name}">
         <i class="fas fa-heart fa-lg"></i>
-
       `;
-      $("<form id='user-file'>").html($maps).appendTo($(".square-view-all-maps"));
+      $("<div id='user-file'>").html($maps).appendTo($(".square-view-all-maps"));
     }
   }
 }
@@ -42,6 +41,17 @@ const addMap = (req) => {
     });
 }
 
+// const viewSingleMap = (maps) => {
+//   $('#edit-map').empty('');
+//   const $map = `
+//   <form id='edit-single-map'>
+//   </form>
+//   `;
+//   $(`<div>`).html(`name: ${maps.name}`).appendTo($("#edit-map"));
+//   $(`<div>`).html(`description: ${maps.description}`).appendTo($("#edit-map"));
+//   $(`<input type='submit' value='Edit' class='editButton'>`).appendTo($("#edit-map"));
+// }
+
 $(document).ready(() => {
 
   //login is handle by the html
@@ -60,23 +70,32 @@ $(document).ready(() => {
     $('#description-input').val('');
   });
 
-  //edit map
+  //show single map
   $('.square-view-all-maps').on('click', '.map-name', (event) => {
     event.preventDefault();
     //**************** error handling *********
     //****************************************
-    let mapName = $(event.target).val();
-    console.log($(event.target).val());
-
     $.ajax({
       method: 'GET',
-      url: `/maps/${mapName}`,
+      url: `/maps/${$(event.target).val()}`,
     })
       .then((result) => {
         $('#edit-map').empty('');
-        // console.log(result.maps[0].name);
-        $("<div>").html(`name: ${result.maps[0].name}`).appendTo($("#edit-map"));
-        $("<div>").html(`description: ${result.maps[0].description}`).appendTo($("#edit-map"));
+        $(`<div>`).html(`name: ${result.maps[0].name}`).appendTo($("#edit-map"));
+        $(`<div>`).html(`description: ${result.maps[0].description}`).appendTo($("#edit-map"));
+        $(`<input type='submit' value='Edit' class='editButton'>`).appendTo($("#edit-map"));
+      });
+  });
+
+  //edit map
+  $('#edit-map').on('click', '.editButton', (event) => {
+    event.preventDefault();
+    $.ajax({
+      method: 'GET',
+      url: `/maps/edit`,
+      data: ``
+    })
+      .then((result) => {
       });
   });
 
