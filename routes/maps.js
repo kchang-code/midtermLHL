@@ -75,20 +75,24 @@ module.exports = (db) => {
       });
   });
 
-  //add map to fav maps
-  router.post('/favorites', (req, res) => {
-    const userId = req.user.name;
-    const query = `INSERT INTO favorite_maps (user_id, map_id) VALUES ($1, $2) RETURNING *;`;
-    const values = [userId, map_id];
-    db.query(query, values)
+  //edit
+  router.put("/edit", (req, res) => {
+    let query = `UPDATE  maps
+                SET
+                maps.name='${req.body.name}',
+                maps.descripton='${req.body.description}',
+                where maps.id='${req.body.id}'`;
+    console.log(req.body);
+    console.log(query);
+    db.query(query)
       .then(data => {
-        res.json({data});
+        // res.send('data created');
       })
       .catch(err => {
-        res.send(err);
+        res
+          .status(500)
+          .json({ error: err.message });
       });
   });
-
-
   return router;
 };
