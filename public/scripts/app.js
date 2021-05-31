@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const createMaps = (maps) => {
   for (const i in maps) {
     for (const a in maps[i]) {
@@ -31,6 +32,8 @@ const viewLatestMaps = () => {
     createMaps(maps);
   })
 }
+=======
+>>>>>>> 164a6c6741c28e3bf618654ea5c09143d37a6b14
 
 
 
@@ -39,6 +42,7 @@ $(document).ready(() => {})
   //login is handle by the html
 
   //view all maps
+<<<<<<< HEAD
   viewAllMaps();
 
   //add maps
@@ -57,3 +61,5 @@ $(document).ready(() => {})
 
 
 
+=======
+>>>>>>> 164a6c6741c28e3bf618654ea5c09143d37a6b14
