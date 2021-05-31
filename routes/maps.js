@@ -25,6 +25,23 @@ module.exports = (db) => {
       });
   });
 
+  //read latest map
+  router.get("/last", (req, res) => {
+    let query = `select * from maps order by id desc limit 1;`;
+    console.log(query);
+    db.query(query)
+      .then(data => {
+        const maps = data.rows;
+        console.log(maps);
+        res.json({ maps });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
   //read single map
   router.get("/:name", (req, res) => {
     let query = `SELECT * FROM maps WHERE maps.name ='${req.params.name}'`;
@@ -32,6 +49,7 @@ module.exports = (db) => {
     db.query(query)
       .then(data => {
         const maps = data.rows;
+        console.log(maps);
         res.json({ maps });
       })
       .catch(err => {
