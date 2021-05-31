@@ -1,3 +1,4 @@
+//create maps in the view all maps
 const createMaps = (maps) => {
   for (const i in maps) {
     for (const a in maps[i]) {
@@ -9,8 +10,8 @@ const createMaps = (maps) => {
   }
 }
 
+//view all maps
 const viewAllMaps = () => {
-  //view all maps
   $.ajax({
     method: "GET",
     url: "/maps"
@@ -19,8 +20,8 @@ const viewAllMaps = () => {
   })
 }
 
+//view all maps
 const viewLatestMaps = () => {
-  //view all maps
   $.ajax({
     method: "GET",
     url: "/maps/last"
@@ -29,6 +30,7 @@ const viewLatestMaps = () => {
   })
 }
 
+//add a map to the database
 const addMap = (req) => {
   $.ajax({
     method: 'POST',
@@ -40,53 +42,64 @@ const addMap = (req) => {
     });
 }
 
-// const viewSingleMap = (maps) => {
-//   $('#edit-map').empty('');
-//   const $map = `
-//   <form id='edit-single-map'>
-//   </form>
-//   `;
-//   $(`<div>`).html(`name: ${maps.name}`).appendTo($("#edit-map"));
-//   $(`<div>`).html(`description: ${maps.description}`).appendTo($("#edit-map"));
-//   $(`<input type='submit' value='Edit' class='editButton'>`).appendTo($("#edit-map"));
-// }
+//view single map
+const viewSingleMap = (result) => {
+  $('#edit-map').empty('');
+  console.log(result.maps[0].description);
+  const $map = `
+    <div>
+      <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
+    </div>
+    <div>
+      <input id='map-edit-description' name='description' value="${result.maps[0].description}">
+    </div>
+    <input type='submit' value='Edit' class='editButton'>
+  `;
+  $(`<div>`).html($map).appendTo($("#edit-map"));
+}
 
+//create new popups for a new pin
+const createNewPopUps = (maps) => {
+  const $popups = `
+        <div id='popupTitle'>
+          <p>this is a title</p>
+        </div>
+        <div id='popupImage'>
+          <p>Image goes here</p>
+        </div>
+        <div id='popupDescription'>
+          <p>this is a description</p>
+        </div>
+        <div id='popupButtons'>
+          <form method="POST">
+            <label for="title-input">Title:</label>
+            <input id="title-input" type="text" name='title'><br>
+            <label for="description-input">Description:</label>
+            <input id="description-input" type="text" name=description'>
+            <input type="file"  accept="image/*" name="image" id="file"><br>
+            <input type='submit' value='Edit' class='editButton'/>
+            </form>
+          </div>
+        <div >
+          <input type='button' value='Delete' class='deleteButton'/>
+        </div>
+          `;
+  return $popups;
+}
+
+
+//main function
 $(document).ready(() => {
-  //create new popups
-  const createNewPopUps = (maps) => {
-    const $popups = `
-          <div id='popupTitle'>
-            <p>this is a title</p>
-          </div>
-          <div id='popupImage'>
-            <p>Image goes here</p>
-          </div>
-          <div id='popupDescription'>
-            <p>this is a description</p>
-          </div>
-          <div id='popupButtons'>
-            <form method="POST">
-              <label for="title-input">Title:</label>
-              <input id="title-input" type="text" name='title'><br>
-              <label for="description-input">Description:</label>
-              <input id="description-input" type="text" name=description'>
-              <input type="file"  accept="image/*" name="image" id="file"><br>
-              <input type='submit' value='Edit' class='editButton'/>
-              </form>
-            </div>
-          <div >
-            <input type='button' value='Delete' class='deleteButton'/>
-          </div>
-            `;
-    return $popups;
-  }
 
+
+  //maps api starts here
   //  NEW MAP
   const mymap = L.map("mapid").setView([51.505, -0.09], 13);
   const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   const tiles = L.tileLayer(tileUrl, { attribution });
   tiles.addTo(mymap);
+
   // CREATE MARKER WHEREVER YOU CLICK
   mymap.on('click', function (e) {
     let marker = new L.marker(e.latlng).addTo(mymap);
@@ -105,6 +118,7 @@ $(document).ready(() => {
   }
 
 
+  //ajax call starts here
   //login is handle by the html
 
   //view all maps
@@ -113,8 +127,6 @@ $(document).ready(() => {
   //add maps
   $('#map-form').on('submit', function (event) {
     event.preventDefault();
-    //**************** error handling *********
-    //****************************************
     addMap(this);
     viewLatestMaps();
     $('#title-input').val('');
@@ -124,17 +136,12 @@ $(document).ready(() => {
   //show single map
   $('.square-view-all-maps').on('click', '.map-name', (event) => {
     event.preventDefault();
-    //**************** error handling *********
-    //****************************************
     $.ajax({
       method: 'GET',
       url: `/maps/${$(event.target).val()}`,
     })
       .then((result) => {
-        $('#edit-map').empty('');
-        $(`<div>`).html(`name: ${result.maps[0].name}`).appendTo($("#edit-map"));
-        $(`<div>`).html(`description: ${result.maps[0].description}`).appendTo($("#edit-map"));
-        $(`<input type='submit' value='Edit' class='editButton'>`).appendTo($("#edit-map"));
+        viewSingleMap(result);
         mymap.setView([0, 0], 0);
       });
   });
@@ -142,6 +149,8 @@ $(document).ready(() => {
   //edit map
   $('#edit-map').on('click', '.editButton', (event) => {
     event.preventDefault();
+    console.log($('#map-edit-name').val());
+    console.log($('#map-edit-description').val());
     $.ajax({
       method: 'GET',
       url: `/maps/edit`,
