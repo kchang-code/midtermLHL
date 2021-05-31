@@ -16,8 +16,9 @@ body {
 #top {
   display: flex;
   flex-direction: row;
+  justify-content: space-around;
 }
-#form {
+#form-new-map {
   display: flex;
   width: 40%;
   flex-direction: column;
@@ -25,8 +26,11 @@ body {
   align-items: center;
 }
 
+
 .fa-heart:hover {
   color: blue;
+  display: flex;
+  
 }
 
 #user-file {
