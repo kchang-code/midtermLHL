@@ -3,7 +3,6 @@ const createMaps = (maps) => {
     for (const a in maps[i]) {
       const $maps = `
         <input  type="submit" class="map-name" name="name" value="${maps[i][a].name}">
-        <i class="fas fa-heart fa-lg"></i>
       `;
       $("<div id='user-file'>").html($maps).appendTo($(".square-view-all-maps"));
     }
