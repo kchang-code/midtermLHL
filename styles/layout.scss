@@ -8,6 +8,7 @@ body {
   }
 }
 
+
 #top {
   display: flex;
   flex-direction: row;
@@ -15,19 +16,21 @@ body {
 
 #mapid {
   height: 480px;
-  width: 50%;
+  width: 80%;
 }
 
 #top-form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 480px;
   width: 50%;
 }
 
 #form {
-  flex-direction: row;
-  justify-content: space-around;
+// padding: 30px;
+border: 70px;
+margin: 70px;
 }
 #form-new-map {
   display: flex;
@@ -53,19 +56,52 @@ body {
   display: flex;
   flex-direction: rows;
   justify-content: space-around;
-  // border: solid;
+  padding-top: 20px;
 }
 
 .square-view-all-maps {
-  border: solid;
+  // border: solid;
+  text-align: center;
+  display: block;
+  justify-content: space-between;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+}
+
+.map-name {
+  color: #244751;
+  background: transparent;
+  border: 2px solid #0099cc;
+  border-radius: 6px;
+}
+
+.map-name:hover {
+  background-color: #008cba;
+  color: white;
 }
 
 .square-fav-maps {
-  border: solid;
+  // border: solid;
+  display: block;
+  justify-content: space-between;
+
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 .square-user-contributions {
-  border: solid;
+  // border: solid;
+  display: block;
+  flex-basis: 0;
+  justify-content: space-between;
+
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
 }
 
 #popupButtons {
