@@ -1,26 +1,4 @@
-
-const renderMaps = function (tweetData) {
-  for (const tweet of tweetData) {
-    let $tweet = createTweetElement(tweet);
-    $(".tweet-container").prepend($tweet);
-  }
-};
-
-const createMaps = function () {
-  const $map = `
-        <article>
-          <header>
-              <div class="map-container">
-                <a href="">Map name</a>
-            </div>
-          </footer>
-        </article>
-        `;
-  return $map;
-};
-
-$(document).ready(() => {
-
+const viewAllMaps = () => {
   //view all maps
   $.ajax({
     method: "GET",
@@ -34,27 +12,44 @@ $(document).ready(() => {
     }
   }
   );
+}
 
-})
-
-$('i').on('click',(favourite_maps) =>{
-  console.log('click!');
+const addMap = (req) => {
   $.ajax({
-    method:"POST",
-    url: "/favourites"
-  }).done((favorite_maps) => {
-    console.log('http call success');
-    })
+    method: 'POST',
+    url: '/maps',
+    data: $(req).serialize()
   })
-//
-$.ajax({
-  method: "GET",
-  url: "/maps"
-}).done((maps) => {
-  for (const i in maps) {
-    console.log(typeof maps[i]);
-    for (const a in maps[i]) {
-      $("<div>").text(maps[i][a].name).appendTo($("#view-all-maps"));
-    }
-  }
-});
+    .then(() => {
+      console.log('form submitted');
+    });
+}
+
+
+$(document).ready(() => {
+
+  //login is handle by the html
+
+  //view all maps
+  viewAllMaps();
+
+  //add maps
+  $('#map-form').on('submit', function (event) {
+    event.preventDefault();
+    //**************** error handling *********
+    //****************************************
+    addMap(this);
+    viewAllMaps();
+    $('#title-input').val('');
+    $('#description-input').val('');
+  });
+
+
+
+  })
+
+
+
+
+
+

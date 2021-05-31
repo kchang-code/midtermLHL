@@ -50,28 +50,29 @@
   <section id="top">
 
     <div id="mapid"></div>
-  </div id="form-new-map">
-    <form method="POST">
+
+    </div id="form">
+    <form action="/maps" method="POST" id="map-form">
       <h4>Create a new map</h4>
 
       <div>
         <label for="title-input">Title:</label>
       </div>
       <div>
-        <input id="title-input" type="text"><br>
+        <input id="title-input" type="text" name="name"><br>
       </div>
       <div>
         <label for="description-input">Description:</label>
       </div>
       <div>
-        <input id="description-input" type="text"><br>
+        <input id="description-input" type="text" name='description'><br>
       </div>
-      <button id="button-submit" type="button">Save Changes</button>
+      <button id="button-submit" type="submit">add</button>
     </form>
 
   </div id="form-edit-map">
   <form method="POST">
-    <h4>Edit Map</h4>
+    <!-- <h4>Edit Map</h4>
     <div>
       <label for="title-input">Title:</label>
     </div>
@@ -85,13 +86,12 @@
       <input id="description-input" type="text"><br>
     </div>
     <button id="button-submit" type="button">Save Changes</button>
-  </form>
+  </form> -->
 </section>
 <i class="fas fa-heart"> Favourite this map</i>
   <section id="mapContainer">
     <div class="square-view-all-maps">
       <h3 class="heading">All Maps</h3>
-      <!-- form -->
     </div>
     <div class="square-fav-maps">
       <h3 class="heading">Favorite Maps</h3>
@@ -104,49 +104,35 @@
 
 
 <!-- LEAFLET VERSION -->
+
+
 <script>
-
-
   //  NEW MAP
   const mymap = L.map("mapid").setView([51.505, -0.09], 13);
   const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const attribution =
-  '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   const tiles = L.tileLayer(tileUrl, { attribution });
   tiles.addTo(mymap);
-
-
-
-
-
-// CREATE MARKER WHEREVER YOU CLICK
-  mymap.on('click', function(e){
+  // CREATE MARKER WHEREVER YOU CLICK
+  mymap.on('click', function (e) {
     let marker = new L.marker(e.latlng).addTo(mymap);
-    function addMarker(e){
-
-let newMarker = new L.marker(e.latlng).addTo(mymap);
-}
-marker.bindPopup("<input type='button' value='Delete' class='deleteButton'/><br><input type='button' value='Edit' class='editButton'/>").openPopup();
-marker.on("popupopen", onPopupOpen);
-return marker;
-});
-
-// DELETE BUTTON FUNCTIONALITY
-function onPopupOpen() {
+    function addMarker(e) {
+      let newMarker = new L.marker(e.latlng).addTo(mymap);
+    }
+    marker.bindPopup("<input type='button' value='Delete' class='deleteButton'/><br><input type='button' value='Edit' class='editButton'/>").openPopup();
+    marker.on("popupopen", onPopupOpen);
+    return marker;
+  });
+  // DELETE BUTTON FUNCTIONALITY
+  function onPopupOpen() {
     let tempMarker = this;
-
     // To remove marker on click of delete button in the popup of marker
     $(".deleteButton:visible").click(function () {
       mymap.removeLayer(tempMarker);
     });
   }
 </script>
-
-
-<div id="mapid"></div>
-
-
-</body>
 
 
 </html>
