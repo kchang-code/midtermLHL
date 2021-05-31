@@ -1,17 +1,35 @@
+const createMaps = (maps) => {
+  for (const i in maps) {
+    for (const a in maps[i]) {
+      const $maps = `
+      <div>${maps[i][a].name}</div>
+      <div>
+      <i class="fas fa-heart fa-lg"></i>
+      </div>
+      `;
+      $("<div id='user-file'>").html($maps).appendTo($(".square-view-all-maps"));
+    }
+  }
+}
+
 const viewAllMaps = () => {
   //view all maps
   $.ajax({
     method: "GET",
     url: "/maps"
   }).done((maps) => {
-    for (const i in maps) {
-      console.log(typeof maps[i]);
-      for (const a in maps[i]) {
-        $("<div id='user-file'>").html('<div>' + maps[i][a].name + '</div><div><i class="fas fa-heart fa-lg"></i></div>').appendTo($(".square-view-all-maps"));
-      }
-    }
-  }
-  );
+    createMaps(maps);
+  })
+}
+
+const viewLatestMaps = () => {
+  //view all maps
+  $.ajax({
+    method: "GET",
+    url: "/maps/last"
+  }).done((maps) => {
+    createMaps(maps);
+  })
 }
 
 const addMap = (req) => {
@@ -38,7 +56,7 @@ $(document).ready(() => {
     //**************** error handling *********
     //****************************************
     addMap(this);
-    viewAllMaps();
+    viewLatestMaps();
     $('#title-input').val('');
     $('#description-input').val('');
   });
