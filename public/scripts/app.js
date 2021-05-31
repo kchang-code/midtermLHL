@@ -51,5 +51,24 @@ $(document).ready(() => {
 
 
 
-
-
+$('i').on('click',(favourite_maps) =>{
+  console.log('click!');
+  $.ajax({
+    method:"POST",
+    url: "/favourites"
+  }).done((favorite_maps) => {
+    console.log('http call success');
+    })
+  })
+//
+$.ajax({
+  method: "GET",
+  url: "/maps"
+}).done((maps) => {
+  for (const i in maps) {
+    console.log(typeof maps[i]);
+    for (const a in maps[i]) {
+      $("<div>").text(maps[i][a].name).appendTo($("#view-all-maps"));
+    }
+  }
+});

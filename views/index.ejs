@@ -52,7 +52,7 @@
     <div id="mapid"></div>
 
     </div id="form">
-    <form action="/maps" method="POST" id="map-form">
+    <form method="POST">
       <h4>Create a new map</h4>
 
       <div>
@@ -72,21 +72,6 @@
 
   </div id="form-edit-map">
   <form method="POST">
-    <!-- <h4>Edit Map</h4>
-    <div>
-      <label for="title-input">Title:</label>
-    </div>
-    <div>
-      <input id="title-input" type="text"><br>
-    </div>
-    <div>
-      <label for="description-input">Description:</label>
-    </div>
-    <div>
-      <input id="description-input" type="text"><br>
-    </div>
-    <button id="button-submit" type="button">Save Changes</button>
-  </form> -->
 </section>
 <i class="fas fa-heart"> Favourite this map</i>
   <section id="mapContainer">
@@ -117,15 +102,20 @@
   // CREATE MARKER WHEREVER YOU CLICK
   mymap.on('click', function (e) {
     let marker = new L.marker(e.latlng).addTo(mymap);
-    function addMarker(e) {
-      let newMarker = new L.marker(e.latlng).addTo(mymap);
-    }
-    marker.bindPopup("<input type='button' value='Delete' class='deleteButton'/><br><input type='button' value='Edit' class='editButton'/>").openPopup();
-    marker.on("popupopen", onPopupOpen);
-    return marker;
-  });
-  // DELETE BUTTON FUNCTIONALITY
-  function onPopupOpen() {
+    function addMarker(e){
+
+let newMarker = new L.marker(e.latlng).addTo(mymap);
+}
+marker.bindPopup("<div id='popupTitle'></div>\
+<div id='popupImage'></div>\
+<div id='popupDescription'></div><br>\
+<div id='popupButtons'><input type='button' value='Edit' class='editButton'/><br><input type='button' value='Delete' class='deleteButton'/></div>").openPopup();
+marker.on("popupopen", onPopupOpen);
+return marker;
+});
+
+// DELETE BUTTON FUNCTIONALITY
+function onPopupOpen() {
     let tempMarker = this;
     // To remove marker on click of delete button in the popup of marker
     $(".deleteButton:visible").click(function () {
