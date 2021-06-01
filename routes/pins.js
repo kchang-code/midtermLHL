@@ -71,6 +71,7 @@ module.exports = (db) => {
 
   //edit pin
 
+
   //delete pin
   router.delete("/:title", (req, res) => {
     let query = `DELETE from pins where pins.title='${req.params.title}';`

@@ -90,5 +90,27 @@ module.exports = (db) => {
           .json({ error: err.message });
       });
   });
+
+
+  // DELETE MAP
+  router.delete("/:name", (req, res) => {
+    let query = `DELETE FROM maps WHERE name = '${req.params.name}';`;
+    console.log(res)
+    console.log(req.body)
+    console.log(query);
+    db.query(query)
+    .then(data => {
+      res.send('data deleted');
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
+
+
+
+
   return router;
 };
