@@ -27,8 +27,8 @@ module.exports = (db) => {
   });
 
   //read single pin
-  router.get("/:title", (req, res) => {
-    let query = `SELECT * FROM pins WHERE pins.title ='${req.params.title}'`;
+  router.get("/:id", (req, res) => {
+    let query = `SELECT * FROM pins WHERE map_id ='${req.params.id}'`;
     console.log(query);
     db.query(query)
       .then(data => {

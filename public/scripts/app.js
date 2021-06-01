@@ -45,7 +45,7 @@ const addMap = (req) => {
 //view single map
 const viewSingleMap = (result) => {
   $('#edit-map').empty('');
-  console.log(result.maps[0].description);
+  // console.log(result.maps[0].description);
   const $map = `
     <div>
       <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
@@ -100,9 +100,10 @@ $(document).ready(() => {
   const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   const tiles = L.tileLayer(tileUrl, { attribution });
   tiles.addTo(mymap);
+  var layerGroup = L.layerGroup().addTo(mymap);
 
   // CREATE MARKER WHEREVER YOU CLICK
-  mymap.on('click', function (e) {
+  const markers = mymap.on('click', function (e) {
     let marker = new L.marker(e.latlng).addTo(mymap);
     marker.bindPopup(createNewPopUps());
     marker.on("popupopen", onPopupOpen);
@@ -138,16 +139,38 @@ $(document).ready(() => {
     $('#description-input').val('');
   });
 
+  //create marker on read single map
+
+
+
   //show single map
   $('.square-view-all-maps').on('click', '.map-name', (event) => {
     event.preventDefault();
+    layerGroup.clearLayers();
     $.ajax({
       method: 'GET',
       url: `/maps/${$(event.target).val()}`,
     })
       .then((result) => {
+        //start reading pins for specific map
         viewSingleMap(result);
-        mymap.setView([0, 0], 0);
+        $.ajax({
+          method: 'GET',
+          url: `/pins/${$('#map-edit-id').val()}`,
+        })
+          .then((result) => {
+            // console.log(result);
+            let lat = 0;
+            let lng = 0;
+            console.log(result.pins);
+            for (const row of result.pins) {
+              // console.log(result[row]);
+              lat = row.lat;
+              lng = row.lng;
+              new L.marker({ lat, lng }).addTo(layerGroup);
+            }
+            mymap.setView([0, 0], 0);
+          })
       });
   });
 
@@ -158,6 +181,7 @@ $(document).ready(() => {
     //authentication font-end
     if (!document.cookie) {
       alert("Hello! Please login first!!");
+      afterClick();
     }
     let mapData = { id: $('#map-edit-id').val(), name: $('#map-edit-name').val(), description: $('#map-edit-description').val() };
     // let passData = JSON.parse(mapData);
@@ -168,6 +192,7 @@ $(document).ready(() => {
     })
       .then((result) => {
         //pass -_- do nothing at all
+
       });
   });
 
