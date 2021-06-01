@@ -103,6 +103,7 @@ html::-webkit-scrollbar-thumb:active {
   overflow: hidden;
   overflow-y: scroll;
   height: 120px;
+
 }
 
 .map-name {
@@ -120,7 +121,6 @@ html::-webkit-scrollbar-thumb:active {
 }
 
 .square-fav-maps {
-  // border: solid;
   text-align: center;
   display: block;
   justify-content: space-between;
@@ -132,8 +132,11 @@ html::-webkit-scrollbar-thumb:active {
   overflow-y: scroll;
   height: 120px;
 }
+#user-file {
+  text-align: center;
+}
 
-.favouriteMap-name {
+#2-1{
   color: #244751;
   background: transparent;
   border: 2px solid #0099cc;
@@ -141,13 +144,6 @@ html::-webkit-scrollbar-thumb:active {
   overflow: hidden;
   overflow-y: scroll;
 }
-
-.favouriteMap-name:hover {
-  background-color: #008cba;
-  color: white;
-}
-
-
 
 #popupButtons {
   display: flex;
