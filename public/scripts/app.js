@@ -168,7 +168,9 @@ $(document).ready(() => {
             // console.log(result[row]);
             lat = row.lat;
             lng = row.lng;
-            new L.marker({ lat, lng }).addTo(layerGroup);
+            let marker_map = new L.marker({ lat, lng }).addTo(layerGroup);
+            marker_map.bindPopup('hello');
+            marker_map.on("popupopen", onPopupOpen);
           }
           mymap.setView([0, 0], 0);
         })
