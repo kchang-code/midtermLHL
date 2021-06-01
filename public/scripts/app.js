@@ -20,6 +20,23 @@ const viewAllMaps = () => {
   })
 }
 
+//view single map
+const viewSingleMap = (result) => {
+  $('#edit-map').empty('');
+  console.log(result.maps[0].description);
+  const $map = `
+    <div>
+      <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
+      <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
+    </div>
+    <div>
+      <input id='map-edit-description' name='description' value="${result.maps[0].description}">
+    </div>
+    <input type='submit' value='Edit' class='editButton'>
+  `;
+  $(`<div>`).html($map).appendTo($("#edit-map"));
+}
+
 const viewLatestMaps = () => {
   //view all maps
   $.ajax({
@@ -41,16 +58,6 @@ const addMap = (req) => {
     });
 }
 
-// const viewSingleMap = (maps) => {
-//   $('#edit-map').empty('');
-//   const $map = `
-//   <form id='edit-single-map'>
-//   </form>
-//   `;
-//   $(`<div>`).html(`name: ${maps.name}`).appendTo($("#edit-map"));
-//   $(`<div>`).html(`description: ${maps.description}`).appendTo($("#edit-map"));
-//   $(`<input type='submit' value='Edit' class='editButton'>`).appendTo($("#edit-map"));
-// }
 
 $(document).ready(() => {
   //create new popups
@@ -136,6 +143,8 @@ $(document).ready(() => {
   //show single map
   $('.square-view-all-maps').on('click', '.map-name', (event) => {
     event.preventDefault();
+    //make sure the like button is red
+    $('#favourite-map-heart').css("color","red");
     //**************** error handling *********
     //****************************************
     $.ajax({
@@ -143,10 +152,11 @@ $(document).ready(() => {
       url: `/maps/${$(event.target).val()}`,
     })
       .then((result) => {
-        $('#edit-map').empty('');
-        $(`<div>`).html(`name: ${result.maps[0].name}`).appendTo($("#edit-map"));
-        $(`<div>`).html(`description: ${result.maps[0].description}`).appendTo($("#edit-map"));
-        $(`<input type='submit' value='Edit' class='editButton'>`).appendTo($("#edit-map"));
+        viewSingleMap(result);
+        // $('#edit-map').empty('');
+        // $(`<div>`).html(`name: ${result.maps[0].name}`).appendTo($("#edit-map"));
+        // $(`<div>`).html(`description: ${result.maps[0].description}`).appendTo($("#edit-map"));
+        // $(`<input type='submit' value='Edit' class='editButton'>`).appendTo($("#edit-map"));
         mymap.setView([0, 0], 0);
       });
   });
@@ -157,26 +167,58 @@ $(document).ready(() => {
     $.ajax({
       method: 'GET',
       url: `/maps/edit`,
-      data: ``
+      data: {}
     })
       .then((result) => {
       });
   });
 
-
-
-  // Delete map
-  $('#delete-map').on('click', (event) => {
+  //favourtie map
+  $('#favourite-map-heart').on('click', (event) => {
     event.preventDefault();
-    $.ajax({
-      method: 'DELETE',
-      url: '/maps/delete',
-      data: ''
-    })
-      .then((result) => {
-        console.log(req.rows)
+    let color = $('#favourite-map-heart').css("color");
+    console.log(color);
+    console.log(document.cookie[document.cookie.length-1]);
+    console.log($('#map-edit-id').val());
+    let unique_id=`${document.cookie[document.cookie.length-1]}-${$('#map-edit-id').val()}`;
+    if (color==='rgb(255, 0, 0)'){
+      console.log('success');
+      $.ajax({
+        method: 'POST',
+        url: `/favourites`,
+        data: {user_id:document.cookie[document.cookie.length-1], map_id:$('#map-edit-id').val()}
       })
-  })
+        .then((result) => {
+          console.log(result);
+          $(`<div id='${unique_id}'>`).html($('#map-edit-name').val()).appendTo($(".square-fav-maps"));
+          $('#favourite-map-heart').css("color","blue");
+        });
+    }else{
+      $.ajax({
+        method: 'DELETE',
+        url: `/favourites`,
+        data: {user_id:document.cookie[document.cookie.length-1], map_id:$('#map-edit-id').val()}
+      })
+        .then((result) => {
+          $(`#${unique_id}`).remove();
+          $('#favourite-map-heart').css("color","red");
+        });
+    }
+  });
+
+
+  // // Delete map
+  // $('NO BUTTON YET').on('click', (event) => {
+  //   event.preventDefault();
+  //   $.ajax({
+  //     method: 'DELETE',
+  //     url: '/:name',
+  //     data: ''
+  //   })
+  //     .then((result) => {
+  //       console.log(req.rows)
+  //     })
+  // })
 
 })
 
