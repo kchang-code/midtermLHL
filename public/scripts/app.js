@@ -304,21 +304,6 @@ $(document).ready(() => {
         });
     }
   });
-
-
-  // // Delete map
-  // $('NO BUTTON YET').on('click', (event) => {
-  //   event.preventDefault();
-  //   $.ajax({
-  //     method: 'DELETE',
-  //     url: '/:name',
-  //     data: ''
-  //   })
-  //     .then((result) => {
-  //       console.log(req.rows)
-  //     })
-  // })
-
 })
 
 
