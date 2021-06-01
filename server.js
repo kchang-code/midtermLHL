@@ -44,7 +44,7 @@ const favoriteMaps = require('./routes/favoriteMaps');
 app.use("/pins", pinsRoutes(db));
 app.use("/maps", mapsRoutes(db));
 app.use("/login", fakeLogin(db));
-app.use("/favorites", favoriteMaps(db));
+app.use("/favourites", favoriteMaps(db));
 
 // Note: mount other resources here, using the same pattern above
 

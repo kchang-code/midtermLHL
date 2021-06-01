@@ -11,12 +11,13 @@ const router = express.Router();
 module.exports = (db) => {
   //add map to fav maps
   router.post('/', (req, res) => {
-    const userId = req.user.id;
-    const query = `INSERT INTO favorite_maps (user_id, map_id) VALUES ($1, $2) RETURNING *;`;
-    const values = [userId, map_id];
-    db.query(query, values)
+    const userId = req.body.user_id;
+    const mapId = req.body.map_id;
+    const query = `INSERT INTO favourite_maps (user_id, map_id) VALUES ('${userId}', '${mapId}');`;
+    //const values = [userId, map_id];
+    db.query(query)
       .then(data => {
-        res.send('data added');
+        console.log('data added');
       })
       .catch(err => {
         res
@@ -25,6 +26,23 @@ module.exports = (db) => {
       });
   });
 
+  //delete fav map
+  router.delete("/", (req, res) => {
+    const userId = req.body.user_id;
+    const mapId = req.body.map_id;
+    let query = `DELETE FROM favourite_maps WHERE map_id = '${mapId}' and user_id='${userId}';`;
+    console.log(query);
+    db.query(query)
+    .then(data => {
+      res.send('data deleted');
+    })
+    .catch(err => {
+      res
+        .status(500)
+        .json({ error: err.message });
+    });
+  });
 
   return router;
+
 };
