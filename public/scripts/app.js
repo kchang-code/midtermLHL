@@ -100,11 +100,12 @@ $(document).ready(() => {
   const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   const tiles = L.tileLayer(tileUrl, { attribution });
   tiles.addTo(mymap);
+  //make marker editable
   var layerGroup = L.layerGroup().addTo(mymap);
 
   // CREATE MARKER WHEREVER YOU CLICK
   const markers = mymap.on('click', function (e) {
-    let marker = new L.marker(e.latlng).addTo(mymap);
+    let marker = new L.marker(e.latlng).addTo(layerGroup);
     marker.bindPopup(createNewPopUps());
     marker.on("popupopen", onPopupOpen);
     return marker;
