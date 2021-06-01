@@ -8,26 +8,56 @@ body {
   }
 }
 
+// scrollbar for the entire page
+html::-webkit-scrollbar {
+  width: 10px;
+}
+
+html::-webkit-scrollbar-track {
+  background: rgb(179, 177, 177);
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: rgb(136, 136, 136);
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: rgb(100, 100, 100);
+  border-radius: 10px;
+}
+
+html::-webkit-scrollbar-thumb:active {
+  background: rgb(68, 68, 68);
+  border-radius: 10px;
+}
+
 #top {
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
 }
 
 #mapid {
   height: 480px;
-  width: 50%;
+  width: 80%;
 }
 
 #top-form {
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   height: 480px;
   width: 50%;
 }
 
 #form {
-  flex-direction: row;
-  justify-content: space-around;
+  display: flex;
+  z-index: 2;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 #form-new-map {
   display: flex;
@@ -35,6 +65,16 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+}
+
+#edit-map {
+  z-index: 1;
+  padding-top: 50px;
+}
+
+.fa-heart:hover {
+  color: blue;
+  display: flex;
 }
 
 #user-file {
@@ -48,19 +88,59 @@ body {
   display: flex;
   flex-direction: rows;
   justify-content: space-around;
-  // border: solid;
+  padding-top: 20px;
 }
 
 .square-view-all-maps {
-  border: solid;
+  // border: solid;
+  text-align: center;
+  display: block;
+  justify-content: space-between;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 120px;
+}
+
+.map-name {
+  color: #244751;
+  background: transparent;
+  border: 2px solid #0099cc;
+  border-radius: 6px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.map-name:hover {
+  background-color: #008cba;
+  color: white;
 }
 
 .square-fav-maps {
-  border: solid;
+  // border: solid;
+  display: block;
+  justify-content: space-between;
+
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 120px;
 }
 
 .square-user-contributions {
-  border: solid;
+  // border: solid;
+  display: block;
+  flex-basis: 0;
+  justify-content: space-between;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 120px;
 }
 
 #popupButtons {

@@ -29,6 +29,6 @@ CREATE TABLE pins(
     image VARCHAR(225),
     map_id INT REFERENCES maps(id) ON DELETE CASCADE,
     user_id INT REFERENCES users(id) ON DELETE CASCADE,
-    latitude FLOAT,
-    longitude FLOAT
+    lat FLOAT,
+    lng FLOAT
 );
