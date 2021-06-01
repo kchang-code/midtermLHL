@@ -26,13 +26,3 @@ VALUES
 ('position2','I dont know where it is 2','💩',2,1,56, -50),
 ('position3','I dont know where it is 3','💩',1,2,49.260727, -123.126545);
 
-
-INSERT INTO pins (title, description, map_id, user_id, latitude, longitude)
-VALUES ('Sad Kitty', 'Come see a sad kitty', 1, 2, 53.61, 115.8);
-
--- curl -X POST -d 'title=SadKittydddddddddddddd' -d 'description=aaaaa' -d 'map_id=1' -d 'user_id=2' -d 'latitude=10' -d 'longitude=5' localhost:8080/pins
--- psql -U labber -d midterm
--- npm run db:reset
-
-
--- curl -X POST -d 'title=Edmonton' localhost:8080/maps/delete

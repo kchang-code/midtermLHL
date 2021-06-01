@@ -121,9 +121,9 @@ html::-webkit-scrollbar-thumb:active {
 
 .square-fav-maps {
   // border: solid;
+  text-align: center;
   display: block;
   justify-content: space-between;
-
   flex-basis: 0;
   -webkit-box-flex: 1;
   flex-grow: 1;
@@ -133,15 +133,21 @@ html::-webkit-scrollbar-thumb:active {
   height: 120px;
 }
 
-.square-user-contributions {
-  // border: solid;
-  display: block;
-  flex-basis: 0;
-  justify-content: space-between;
+.favouriteMap-name {
+  color: #244751;
+  background: transparent;
+  border: 2px solid #0099cc;
+  border-radius: 6px;
   overflow: hidden;
   overflow-y: scroll;
-  height: 120px;
 }
+
+.favouriteMap-name:hover {
+  background-color: #008cba;
+  color: white;
+}
+
+
 
 #popupButtons {
   display: flex;
