@@ -62,7 +62,6 @@ module.exports = (db) => {
 
 
 
-
   //add map to fav maps
   router.post('/', (req, res) => {
     const userId = req.body.user_id;

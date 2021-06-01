@@ -10,6 +10,7 @@ const createMaps = (maps) => {
   }
 }
 
+
 const viewAllMaps = () => {
   //view all maps
   $.ajax({
@@ -19,6 +20,8 @@ const viewAllMaps = () => {
     createMaps(maps);
   })
 }
+
+
 
 //view single map
 const viewSingleMap = (result) => {
@@ -37,6 +40,8 @@ const viewSingleMap = (result) => {
   $(`<div>`).html($map).appendTo($("#edit-map"));
 }
 
+
+
 const viewLatestMaps = () => {
   //view all maps
   $.ajax({
@@ -46,6 +51,8 @@ const viewLatestMaps = () => {
     createMaps(maps);
   })
 }
+
+
 
 const addMap = (req) => {
   $.ajax({
@@ -57,6 +64,58 @@ const addMap = (req) => {
       console.log('form submitted');
     });
 }
+
+
+// FAVOURITES
+
+const createFavouriteMaps = (favouriteMaps) => {
+  for(const i in favouriteMaps) {
+    for (const b in favouriteMaps[i]) {
+      const $favouriteMaps = `
+      <input type= "submit" class="favouriteMap-name" name="favName" value="${favouriteMaps[i][b].name}">
+      <i class="fas fa-times-circle fa-lg"></i>
+    `;
+    $("<div id='user-file'>").html($favouriteMaps).appendTo($(".square-fav-maps"));
+    }
+  }
+}
+createFavouriteMaps()
+
+// view all favorite maps
+const favoriteViewAllMaps = () => {
+  $.ajax({
+    method: "GET",
+    url: "/favourites"
+  }).done((favMaps) => {
+    createFavouriteMaps(favMaps)
+  })
+}
+
+
+// View all latest favourite maps
+const favouriteViewLatestMaps =() => {
+  $.ajax({
+    method: "GET",
+    url: "/favourites/last"
+  }).done((favMaps) => {
+    createFavouriteMaps(favMaps)
+  })
+}
+
+// Add favourite maps
+const favouriteAddMap = (req) => {
+  $.ajax({
+    method: 'POST',
+    url: '/favourites',
+    data: $(req).serialize()
+  })
+    .then(() => {
+      console.log('favorite form submitted')
+    });
+}
+
+
+
 
 
 $(document).ready(() => {
@@ -128,7 +187,6 @@ $(document).ready(() => {
 
   //view all maps
   viewAllMaps();
-
   //add maps
   $('#map-form').on('submit', function (event) {
     event.preventDefault();
@@ -161,6 +219,22 @@ $(document).ready(() => {
       });
   });
 
+
+  // SHOW FAVOURITE MAP
+  $('.square-fav-maps').on('click', '.favouriteMap-name', (event) => {
+    event.preventDefault();
+    $.ajax({
+      method: 'GET',
+      url: `/favourites/${$(event.target).val()}`
+    })
+      .then((result) => {
+        favoriteViewAllMaps(result);
+        mymap.setView([0,0], 0);
+      });
+  });
+
+
+
   //edit map
   $('#edit-map').on('click', '.editButton', (event) => {
     event.preventDefault();
@@ -182,24 +256,25 @@ $(document).ready(() => {
     console.log($('#map-edit-id').val());
     let unique_id=`${document.cookie[document.cookie.length-1]}-${$('#map-edit-id').val()}`;
     if (color==='rgb(255, 0, 0)'){
+      console.log("BITTFUNK", unique_id)
       console.log('success');
       $.ajax({
         method: 'POST',
         url: `/favourites`,
         data: {user_id:document.cookie[document.cookie.length-1], map_id:$('#map-edit-id').val()}
       })
-        .then((result) => {
-          console.log(result);
-          $(`<div id='${unique_id}'>`).html($('#map-edit-name').val()).appendTo($(".square-fav-maps"));
-          $('#favourite-map-heart').css("color","blue");
-        });
-    }else{
+      .then((result) => {
+        console.log(result);
+        $(`<div id='${unique_id}'>`).html($('#map-edit-name').val()).appendTo($(".square-fav-maps"));
+        $('#favourite-map-heart').css("color","blue");
+      });
+    }else {
       $.ajax({
         method: 'DELETE',
         url: `/favourites`,
         data: {user_id:document.cookie[document.cookie.length-1], map_id:$('#map-edit-id').val()}
       })
-        .then((result) => {
+      .then((result) => {
           $(`#${unique_id}`).remove();
           $('#favourite-map-heart').css("color","red");
         });
