@@ -128,6 +128,10 @@ $(document).ready(() => {
   //add maps
   $('#map-form').on('submit', function (event) {
     event.preventDefault();
+    //authentication font-end
+    if (!document.cookie) {
+      alert("Hello! Please login first!!");
+    }
     addMap(this);
     viewLatestMaps();
     $('#title-input').val('');
@@ -150,6 +154,11 @@ $(document).ready(() => {
   //edit map
   $('#edit-map').on('click', '.editButton', (event) => {
     event.preventDefault();
+    console.log(document.cookie);
+    //authentication font-end
+    if (!document.cookie) {
+      alert("Hello! Please login first!!");
+    }
     let mapData = { id: $('#map-edit-id').val(), name: $('#map-edit-name').val(), description: $('#map-edit-description').val() };
     // let passData = JSON.parse(mapData);
     $.ajax({
@@ -158,6 +167,7 @@ $(document).ready(() => {
       data: mapData
     })
       .then((result) => {
+        //pass -_- do nothing at all
       });
   });
 
