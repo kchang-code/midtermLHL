@@ -36,6 +36,7 @@ html::-webkit-scrollbar-thumb:active {
 
 #top {
   display: flex;
+  justify-content: space-between;
   flex-direction: row;
 }
 
@@ -53,9 +54,12 @@ html::-webkit-scrollbar-thumb:active {
 }
 
 #form {
-// padding: 30px;
-border: 70px;
-margin: 70px;
+  display: flex;
+  z-index: 2;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 #form-new-map {
   display: flex;
@@ -64,6 +68,12 @@ margin: 70px;
   justify-content: center;
   align-items: center;
 }
+
+#edit-map {
+  z-index: 1;
+  padding-top: 50px;
+}
+
 
 .fa-heart:hover {
   color: blue;
@@ -133,11 +143,11 @@ margin: 70px;
   display: block;
   flex-basis: 0;
   justify-content: space-between;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 120px;
 
-  -webkit-box-flex: 1;
-  flex-grow: 1;
-  flex-shrink: 1;
-  
+
 }
 
 #popupButtons {
