@@ -133,6 +133,7 @@ $(document).ready(() => {
     //authentication font-end
     if (!document.cookie) {
       alert("Hello! Please login first!!");
+      afterClick();
     }
     addMap(this);
     viewLatestMaps();
@@ -158,20 +159,19 @@ $(document).ready(() => {
         $.ajax({
           method: 'GET',
           url: `/pins/${$('#map-edit-id').val()}`,
+        }).then((result) => {
+          // console.log(result);
+          let lat = 0;
+          let lng = 0;
+          console.log(result.pins);
+          for (const row of result.pins) {
+            // console.log(result[row]);
+            lat = row.lat;
+            lng = row.lng;
+            new L.marker({ lat, lng }).addTo(layerGroup);
+          }
+          mymap.setView([0, 0], 0);
         })
-          .then((result) => {
-            // console.log(result);
-            let lat = 0;
-            let lng = 0;
-            console.log(result.pins);
-            for (const row of result.pins) {
-              // console.log(result[row]);
-              lat = row.lat;
-              lng = row.lng;
-              new L.marker({ lat, lng }).addTo(layerGroup);
-            }
-            mymap.setView([0, 0], 0);
-          })
       });
   });
 
@@ -190,11 +190,10 @@ $(document).ready(() => {
       method: 'PUT',
       url: `/maps/edit`,
       data: mapData
-    })
-      .then((result) => {
-        //pass -_- do nothing at all
-
-      });
+    }).then((result) => {
+      $(".square-view-all-maps").empty();
+      viewAllMaps();
+    });
   });
 
 })
