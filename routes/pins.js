@@ -46,7 +46,7 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     let query = `
       INSERT INTO
-      pins (title,description,image,map_id,user_id,latitude,longitude)
+      pins (title,description,image,map_id,user_id,lat,lng)
       VALUES
       (
         '${req.body.title}',
@@ -54,13 +54,14 @@ module.exports = (db) => {
         '${req.body.image}',
         '${req.body.map_id}',
         '${req.body.user_id}',
-        '${req.body.latitude}',
-        '${req.body.longitude}'
+        '${req.body.lat}',
+        '${req.body.lng}'
       )`;
     console.log(query);
     db.query(query)
       .then(data => {
-        res.send('data created');
+        const pins = data.rows;
+        res.json({ pins });
       })
       .catch(err => {
         res
