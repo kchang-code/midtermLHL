@@ -26,3 +26,5 @@ VALUES
 ('position2','I dont know where it is 2','💩',2,1,56, -50),
 ('position3','I dont know where it is 3','💩',1,2,49.260727, -123.126545);
 
+
+INSERT INTO pins (image) VALUES ('../home/cecil/lighthouse/midtermLHL/public/images/sadKitty.jpg');

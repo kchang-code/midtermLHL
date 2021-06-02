@@ -12,17 +12,17 @@ module.exports = (db) => {
 
   //read all favourite maps
   router.get("/", (req, res) => {
-    let query = `SELECT maps.name
-                FROM maps
-                JOIN favourite_maps ON favourite_maps.id = maps.id
-                WHERE favourite_maps.user_id = ${req.body.user_id}`;
+    // let query = `SELECT maps.name
+    //             FROM maps
+    //             JOIN favourite_maps ON favourite_maps.id = maps.id
+    //             WHERE favourite_maps.user_id = ${req.body.user_id}`;
 
     // let userID = req.params;
-    // let query = `SELECT *, maps.name FROM favourite_maps
-    // JOIN maps ON maps.id = map_id
-    // WHERE user_id = ${userId}`;
-    console.log(req);
-    console.log(query);
+    let query = `SELECT *, maps.name FROM favourite_maps
+    JOIN maps ON maps.id = map_id
+    WHERE user_id = 2`;
+    // console.log(req);
+    // console.log(query);
     db.query(query)
     .then(data => {
 
@@ -60,7 +60,7 @@ module.exports = (db) => {
     let query = `SELECT *, maps.name FROM favourite_maps
     JOIN maps ON maps.id = map_id
     WHERE maps.name = '${req.params.id}'`
-    console.log(req.cookies);
+
     console.log(query);
     db.query(query)
       .then(data => {

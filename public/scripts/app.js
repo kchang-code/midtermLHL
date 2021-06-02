@@ -131,9 +131,9 @@ const favoriteViewAllMaps = () => {
   $.ajax({
     method: "GET",
     url: "/favourites",
-    data: { user_id : '123' }
+    // data: { user_id : '2' }
   }).done((favMaps) => {
-    // createFavouriteMaps(favMaps)
+    createFavouriteMaps(favMaps)
   })
 }
 
@@ -266,38 +266,7 @@ $(document).ready(() => {
       method: 'GET',
       url: `/maps/${$(event.target).val()}`
     })
-      .then((result) => {
-        // console.log('BITTERFUNK', result)
-        // console.log('Wait wtf', favouriteMaps[0]);;
-        $.ajax({
-          method: 'GET',
-          url: `/maps/${$(event.target).val()}`,
-        })
-          .then((result) => {
-            //start reading pins for specific map
-            viewSingleMap(result);
-            $.ajax({
-              method: 'GET',
-              url: `/pins/${$('#map-edit-id').val()}`,
-            }).then((result) => {
-              // console.log(result);
-              let lat = 0;
-              let lng = 0;
-              console.log('BITTERFUNK PINKS', result.pins);
-              for (const row of result.pins) {
-                // console.log(result[row]);
-                lat = row.lat;
-                lng = row.lng;
-                let marker_map = new L.marker({ lat, lng }).addTo(layerGroup);
-                marker_map.bindPopup('hello');
-                marker_map.on("popupopen", onPopupOpen);
-              }
-              mymap.setView([0, 0], 0);
-            })
-          });
-        favouriteViewSingleMap(result);
-        mymap.setView([0, 0], 0);
-      })
+      //
       .then((result) => {
         //start reading pins for specific map
         favouriteViewSingleMap(result);
@@ -341,7 +310,7 @@ $(document).ready(() => {
       url: `/maps/edit`,
       data: mapData
     }).then((result) => {
-      $(".square-view-all-maps").empty();
+      // $(".square-view-all-maps").empty();
       viewAllMaps();
     });
   });
@@ -390,7 +359,7 @@ $(document).ready(() => {
     $.ajax({
       method: 'DELETE',
       url: `/favourites`,
-      data: { user_id: document.cookie[document.cookie.length - 1], map_id: $('#map-edit-id').val() }
+      data: { user_id: document.cookie[document.cookie.length - 1], maps_id: $('#map-edit-id').val() }
     })
     .then((result) => {
       $(`#${unique_id}`).remove();
