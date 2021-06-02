@@ -23,7 +23,6 @@ const createMaps = (maps) => {
 //view single map
 const viewSingleMap = (result) => {
   $('#edit-map').empty('');
-  console.log(result.maps[0].description);
   const $map = `
     <div>
       <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>

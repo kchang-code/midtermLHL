@@ -12,29 +12,23 @@ $(document).ready(() => {
   //login is handle by the html
 
   // create pins
-  let markers = [];
-  mymap.on('click', function (e) {
-    $.ajax({
-      method: 'POST',
-      url: `/pins/`,
-      data: {
-        title: 'title',
-        description: 'description',
-        image: '/',
-        map_id: `${$('#map-edit-id').val()}`,
-        user_id: `${document.cookie[document.cookie.length - 1]}`,
-        lat: e.latlng.lat,
-        lng: e.latlng.lng
-      }
-    }).then((result) => {
-      console.log(result);
-      createMarker(e.latlng, markers, mymap)
-    })
-    // let marker = new L.marker(e.latlng).addTo(layerGroup);
-    // marker.bindPopup(createNewPopUps('1', '2', '3'));
-    // marker.on("popupopen", onPopupOpen(layerGroup));
-    // return marker;
+  // CREATE MARKER WHEREVER YOU CLICK
+  const markers = mymap.on('click', function (e) {
+    let marker = new L.marker(e.latlng).addTo(mymap);
+    marker.bindPopup(createNewPopUps());
+    marker.on("popupopen", onPopupOpen);
+    addMarkerToDB($('#map-edit-id').val(), document.cookie[document.cookie.length - 1], e.latlng.lat, e.latlng.lng);
+    return marker;
   });
+
+  // DELETE BUTTON FUNCTIONALITY
+  function onPopupOpen() {
+    let tempMarker = this;
+    // To remove marker on click of delete button in the popup of marker
+    $(".deleteButton:visible").click(function () {
+      mymap.removeLayer(tempMarker);
+    });
+  }
 
   //view all maps
   viewAllMaps();
@@ -53,7 +47,10 @@ $(document).ready(() => {
   $('.square-view-all-maps').on('click', '.map-name', (event) => {
     event.preventDefault();
     //initialize the map div for viewing
-    layerGroup.clearLayers();
+    mymap.eachLayer(function (layer) {
+      mymap.removeLayer(layer);
+    });
+    tiles.addTo(mymap);
     $('#favourite-map-heart').css("color", "red");
     $.ajax({
       method: 'GET',
@@ -66,15 +63,16 @@ $(document).ready(() => {
           method: 'GET',
           url: `/pins/${$('#map-edit-id').val()}`,
         }).then((result) => {
-          console.log(result);
+          //console.log(result);
           let lat = 0;
           let lng = 0;
           for (const row of result.pins) {
             lat = row.lat;
             lng = row.lng;
-            let marker_map = new L.marker({ lat, lng }).addTo(layerGroup);
+            let marker_map = new L.marker({ lat, lng }).addTo(mymap);
             // marker_map.bindPopup(createNewPopUps(row.title, row.image, row.description));
-            // marker_map.on("popupopen", onPopupOpen(layerGroup));
+            marker_map.bindPopup(createNewPopUps());
+            marker_map.on("popupopen", onPopupOpen);
           }
           mymap.setView([0, 0], 0);
         })
