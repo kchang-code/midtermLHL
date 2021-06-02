@@ -181,6 +181,7 @@ $(document).ready(() => {
     let marker = new L.marker(e.latlng).addTo(layerGroup);
     marker.bindPopup(createNewPopUps());
     marker.on("popupopen", onPopupOpen);
+    console.log('BITTERFUNK', e.latlng)
     return marker;
   });
 
