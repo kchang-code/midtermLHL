@@ -32,13 +32,6 @@ $(document).ready(() => {
     });
   }
 
-  $(".deleteButton:visible").click(function () {
-    const pinData = { map_id: $('#map-edit-id').val(), user_id: document.cookie[document.cookie.length - 1], lat: $('#lat').val(), lng: $('#lng').val() };
-    console.log('delete success');
-    deleteMarker(pinData);
-    mymap.removeLayer(tempMarker);
-  });
-
   //view all maps
   viewAllMaps();
 
@@ -55,7 +48,7 @@ $(document).ready(() => {
   //show single map
   $('.square-view-all-maps').on('click', '.map-name', (event) => {
     event.preventDefault();
-    //_leaf_id 26 is the base layer of the map, we only want to keep the base layer on screen
+    //keep the base layer on screen
     mymap.eachLayer(function (layer) {
       layer._leaflet_id !== 26 ? mymap.removeLayer(layer) : '';
     });

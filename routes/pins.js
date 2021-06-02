@@ -87,7 +87,8 @@ module.exports = (db) => {
     where
     map_id='${req.body.map_id}'
     and user_id='${req.body.user_id}'
-
+    and lat='${req.body.lat}'
+    and lng='${req.body.lng}'
     );`
     console.log(query);
     db.query(query)
