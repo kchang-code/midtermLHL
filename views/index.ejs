@@ -40,9 +40,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/login/">Create New Map</a>
-      </div>
       <div class="navbar-nav ml-auto">
         <a id='login' class="nav-item nav-link ml-auto" href="/login/Bob">Login</a>
       </div>
@@ -55,8 +52,10 @@
 
     <div id="mapid"></div>
     <div id='top-form'>
+      <p class="create-map-button">Back to create a map</p>
       <div id="form">
-        <form action="/maps" method="POST" id="map-form">
+        <form action="/maps" method="PO ST" id="map-form">
+          <h3>Create a new map</h3>
           <div><label for="title-input">Title:</label></div>
           <div><input id="title-input" type="text" name="name"><br></div>
           <div><label for="description-input">Description:</label></div>

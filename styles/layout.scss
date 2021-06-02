@@ -35,41 +35,92 @@ html::-webkit-scrollbar-thumb:active {
 
 #top {
   display: flex;
-  justify-content: space-between;
   flex-direction: row;
 }
 
 #mapid {
   height: 480px;
-  width: 80%;
-}
-
-#top-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 480px;
-  width: 50%;
+  width: 60%;
 }
 
 #form {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: transparent;
+  padding: 20px;
+
+  input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    background: transparent;
+  }
+
+  #button-submit {
+    display: inline-block;
+    margin: 0;
+    padding: 0.5rem 0.75rem;
+    border: 0;
+    border-radius: 0.317rem;
+    background-color: #aaa;
+    color: black;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.5;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -webkit-font-smoothing: antialiased;
+  }
+}
+
+#edit-map {
   display: flex;
   z-index: 2;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-}
-#form-new-map {
-  display: flex;
-  width: 40%;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  padding: 20px;
+
+  #map-edit-name,
+  #map-edit-description {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: black;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    background: transparent;
+  }
 }
 
-#edit-map {
-  z-index: 1;
-  padding-top: 50px;
+.editButton {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-radius: 0.317rem;
+  background-color: #aaa;
+  color: black;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+.create-map-button {
+  display: none;
+  padding-left: 15px;
 }
 
 .fa-heart:hover {
@@ -78,10 +129,12 @@ html::-webkit-scrollbar-thumb:active {
 }
 
 #user-file {
-  border-style: 200px, solid, black;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  color: #aaa;
+  background: transparent;
+  // border: 2px solid #0099cc;
+  border-radius: 6px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #mapContainer {
@@ -103,27 +156,42 @@ html::-webkit-scrollbar-thumb:active {
   overflow: hidden;
   overflow-y: scroll;
   height: 120px;
+
+  button,
+  input[type="submit"] {
+    background: none;
+    color: black;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  #user-file:hover {
+    background-color: #aaa;
+    color: white;
+  }
 }
 
-.map-name {
-  color: #244751;
-  background: transparent;
-  border: 2px solid #0099cc;
-  border-radius: 6px;
-  overflow: hidden;
-  overflow-y: scroll;
-}
+// .map-name {
+//   color: #244751;
+//   background: transparent;
+//   border: 2px solid #0099cc;
+//   border-radius: 6px;
+//   overflow: hidden;
+//   overflow-y: scroll;
+// }
 
-.map-name:hover {
-  background-color: #008cba;
-  color: white;
-}
+// .map-name:hover {
+//   background-color: #008cba;
+//   color: white;
+// }
 
 .square-fav-maps {
-  // border: solid;
+  text-align: center;
   display: block;
   justify-content: space-between;
-
   flex-basis: 0;
   -webkit-box-flex: 1;
   flex-grow: 1;
@@ -131,18 +199,29 @@ html::-webkit-scrollbar-thumb:active {
   overflow: hidden;
   overflow-y: scroll;
   height: 120px;
-}
 
-.square-user-contributions {
-  // border: solid;
-  display: block;
-  flex-basis: 0;
-  justify-content: space-between;
-  overflow: hidden;
-  overflow-y: scroll;
-  height: 120px;
-}
+  div {
+    color: black;
+    background: transparent;
+    // border: 2px solid #0099cc;
+    border-radius: 6px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
 
+  div:hover {
+    background-color: #aaa;
+    color: white;
+  }
+}
+// #user-file {
+//   text-align: center;
+// }
+
+.fav-map-input {
+  display: flex;
+  color: blue;
+}
 #popupButtons {
   display: flex;
   flex-direction: row;
