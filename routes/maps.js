@@ -99,18 +99,14 @@ module.exports = (db) => {
     console.log(req.body)
     console.log(query);
     db.query(query)
-    .then(data => {
-      res.send('data deleted');
-    })
-    .catch(err => {
-      res
-        .status(500)
-        .json({ error: err.message });
-    });
+      .then(data => {
+        res.send('data deleted');
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
   });
-
-
-
-
   return router;
 };

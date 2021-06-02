@@ -46,7 +46,7 @@ module.exports = (db) => {
   router.post("/", (req, res) => {
     let query = `
       INSERT INTO
-      pins (title,description,image,map_id,user_id,latitude,longitude)
+      pins (title,description,image,map_id,user_id,lat,lng)
       VALUES
       (
         '${req.body.title}',
@@ -54,9 +54,37 @@ module.exports = (db) => {
         '${req.body.image}',
         '${req.body.map_id}',
         '${req.body.user_id}',
-        '${req.body.latitude}',
-        '${req.body.longitude}'
-      )`;
+        '${req.body.lat}',
+        '${req.body.lng}'
+      );`
+    console.log(query);
+    db.query(query)
+      .then(data => {
+        const pins = data.rows;
+        console.log(pins);
+        res.json({ pins });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
+  //edit pin
+  router.put("/edit", (req, res) => {
+    let query = `
+                update pins
+                set title='${req.body.title}',
+                description='${req.body.description}',
+                image='${req.body.description}'
+                where
+                map_id='${req.body.map_id}'
+                and user_id='${req.body.user_id}'
+                and lat='${req.body.lat}'
+                and lng='${req.body.lng}'
+                `;
+    console.log(req.body);
     console.log(query);
     db.query(query)
       .then(data => {
@@ -69,16 +97,24 @@ module.exports = (db) => {
       });
   });
 
-  //edit pin
-
-
   //delete pin
-  router.delete("/:title", (req, res) => {
-    let query = `DELETE from pins where pins.title='${req.params.title}';`
+  router.delete("/", (req, res) => {
+    let query = `
+    DELETE from pins
+    where id in
+    (
+    select id
+    from pins
+    where
+    map_id='${req.body.map_id}'
+    and user_id='${req.body.user_id}'
+    and lat='${req.body.lat}'
+    and lng='${req.body.lng}'
+    );`
     console.log(query);
     db.query(query)
       .then(data => {
-        res.send('data created');
+        res.send('data deleted');
       })
       .catch(err => {
         res

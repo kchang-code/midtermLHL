@@ -13,6 +13,10 @@
 
   <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
   <script type="text/javascript" src='/scripts/app.js'></script>
+  <script type="text/javascript" src='/scripts/maps.js'></script>
+  <script type="text/javascript" src='/scripts/pins.js'></script>
+  <script type="text/javascript" src='/scripts/favourties.js'></script>
+  <script type="text/javascript" src='/scripts/login.js'></script>
 
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
     integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
@@ -26,7 +30,6 @@
 
 
 </head>
-
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-success">
     <a class="navbar-brand" href="/urls">WikiMap</a>
@@ -36,9 +39,6 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-item nav-link" href="/login/">Create New Map</a>
-      </div>
       <div class="navbar-nav ml-auto">
         <a id='login' class="nav-item nav-link ml-auto" href="/login/Bob">Login</a>
       </div>
@@ -47,11 +47,15 @@
 </header>
 
 <body>
+
+
   <section id="top">
     <div id="mapid"></div>
     <div id='top-form'>
+      <button class="create-map-button">Back to create a map</button>
       <div id="form">
         <form action="/maps" method="POST" id="map-form">
+          <h3>Create a new map</h3>
           <div><label for="title-input">Title:</label></div>
           <div><input id="title-input" type="text" name="name"><br></div>
           <div><label for="description-input">Description:</label></div>
