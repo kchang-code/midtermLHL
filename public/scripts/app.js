@@ -99,6 +99,13 @@ $(document).ready(() => {
         })
       });
   });
+  
+// back to create map button
+$('button.create-map-button').on("click", () => {
+  console.log('im here');
+  $('#edit-map').hide();
+  $('#form').show();
+  $('.create-map-button').hide();
 });
 
 //edit map
@@ -109,10 +116,4 @@ $('#edit-map').on('click', '.editButton', (event) => {
   editMap(mapData);
 });
 
-// back to create map button
-$('button.create-map-button').on("click", () => {
-  console.log('im here');
-  $('#edit-map').hide();
-  $('#form').show();
-  $('.create-map-button').hide();
 });
