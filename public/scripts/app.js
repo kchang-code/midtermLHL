@@ -205,6 +205,7 @@ $(document).ready(() => {
     layerGroup.clearLayers();
     //make sure the like button is red
     $('#favourite-map-heart').css("color", "red");
+    $('form').hide();
     //**************** error handling *********
     //****************************************
     $.ajax({
@@ -305,9 +306,8 @@ $(document).ready(() => {
         });
     }
   });
+
+
+
+
 })
-
-// form toggles
-
-
-
