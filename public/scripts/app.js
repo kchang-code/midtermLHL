@@ -25,10 +25,28 @@ $(document).ready(() => {
     let tempMarker = this;
     // To remove marker on click of delete button in the popup of marker
     $(".deleteButton:visible").click(function () {
-      const pinData = { map_id: $('#map-edit-id').val(), user_id: document.cookie[document.cookie.length - 1], lat: $('#lat').val(), lng: $('#lng').val() };
+      const pinData = {
+        map_id: $('#map-edit-id').val(),
+        user_id: document.cookie[document.cookie.length - 1],
+        lat: $('#lat').val(),
+        lng: $('#lng').val()
+      };
       console.log('popup open');
       deleteMarker(pinData);
       mymap.removeLayer(tempMarker);
+    });
+    //edit marker
+    $(".editButton").click(function () {
+      console.log('edit is clicked');
+      const editPinData = {
+        title: $('#popupTitle').val(),
+        description: $('#popupDescription').val(),
+        image: $('#popupImage').val(),
+        map_id: $('#map-edit-id').val(),
+        user_id: document.cookie[document.cookie.length - 1],
+        lat: $('#lat').val(), lng: $('#lng').val()
+      };
+      editMarker(editPinData);
     });
   }
 

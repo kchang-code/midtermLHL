@@ -2,14 +2,15 @@
 const createNewPopUps = (title, image, description, lat, lng) => {
   const $popups = `
         <div id='pin-pop'>
+        <img src="abc.jpg"><br>
         <input id='popupTitle' value='${title}'>
         <input id='popupImage' value='${image}' type="file"  accept="image/*" name="image">
         <input id='popupDescription' value='${description}'>
         <input id='lat' value='${lat}' type='hidden'>
         <input id='lng' value='${lng}' type='hidden'>
         <div id='popupButtons'>
-            <input type='submit' value='Edit' class='editButton'/>
-            <input type='button' value='Delete' class='deleteButton'/>
+            <input type='submit' value='Edit' class='editButton'>
+            <input type='button' value='Delete' class='deleteButton'>
         </div>
         </div>
           `;
@@ -30,6 +31,17 @@ const addMarkerToDB = (mapID, userID, pinLat, pinLng) => {
       lat: pinLat,
       lng: pinLng
     }
+  }).then((result) => {
+    console.log(result);
+  })
+}
+
+//delete marker
+const editMarker = (editPinData) => {
+  $.ajax({
+    method: 'PUT',
+    url: `/pins/edit`,
+    data: editPinData
   }).then((result) => {
     console.log(result);
   })

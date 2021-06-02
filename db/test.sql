@@ -1,11 +1,9 @@
-DELETE from pins
-where id in
-(
-select id
-from pins
+update pins
+set title='123',
+description='description',
+image='description'
 where
 map_id='2'
 and user_id='2'
-and lat='-67.067433351083'
-and lng='27.0701424713848'
-);
+and lat='43.07'
+and lng='34.11'

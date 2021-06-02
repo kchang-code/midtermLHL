@@ -71,10 +71,31 @@ module.exports = (db) => {
       });
   });
 
-
-
   //edit pin
-
+  router.put("/edit", (req, res) => {
+    let query = `
+                update pins
+                set title='${req.body.title}',
+                description='${req.body.description}',
+                image='${req.body.description}'
+                where
+                map_id='${req.body.map_id}'
+                and user_id='${req.body.user_id}'
+                and lat='${req.body.lat}'
+                and lng='${req.body.lng}'
+                `;
+    console.log(req.body);
+    console.log(query);
+    db.query(query)
+      .then(data => {
+        res.send('data created');
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
 
   //delete pin
   router.delete("/", (req, res) => {
