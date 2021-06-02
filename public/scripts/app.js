@@ -46,11 +46,10 @@ $(document).ready(() => {
   //show single map
   $('.square-view-all-maps').on('click', '.map-name', (event) => {
     event.preventDefault();
-    //initialize the map div for viewing
+    //_leaf_id 26 is the base layer of the map, we only want to keep the base layer on screen
     mymap.eachLayer(function (layer) {
-      mymap.removeLayer(layer);
+      layer._leaflet_id !== 26 ? mymap.removeLayer(layer) : '';
     });
-    tiles.addTo(mymap);
     $('#favourite-map-heart').css("color", "red");
     $.ajax({
       method: 'GET',
@@ -70,8 +69,7 @@ $(document).ready(() => {
             lat = row.lat;
             lng = row.lng;
             let marker_map = new L.marker({ lat, lng }).addTo(mymap);
-            // marker_map.bindPopup(createNewPopUps(row.title, row.image, row.description));
-            marker_map.bindPopup(createNewPopUps());
+            marker_map.bindPopup(createNewPopUps(row.title, row.image, row.description));
             marker_map.on("popupopen", onPopupOpen);
           }
           mymap.setView([0, 0], 0);

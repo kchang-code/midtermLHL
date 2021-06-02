@@ -32,3 +32,22 @@ const addMarkerToDB = (mapID, userID, pinLat, pinLng) => {
     console.log(result);
   })
 }
+
+//delete marker
+const deleteMarker = (mapID, userID, pinLat, pinLng) => {
+  $.ajax({
+    method: 'POST',
+    url: `/pins/`,
+    data: {
+      title: 'title',
+      description: 'description',
+      image: '/',
+      map_id: mapID,
+      user_id: userID,
+      lat: pinLat,
+      lng: pinLng
+    }
+  }).then((result) => {
+    console.log(result);
+  })
+}
