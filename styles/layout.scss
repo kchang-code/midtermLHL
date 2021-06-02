@@ -45,11 +45,10 @@ html::-webkit-scrollbar-thumb:active {
 }
 
 #top-form {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  height: 480px;
-  width: 50%;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #0099cc;
+  padding: 10px;
 }
 
 #form {
@@ -122,10 +121,6 @@ html::-webkit-scrollbar-thumb:active {
     color: white;
 
   }
-
-
-
-
 }
 
 // .map-name {
@@ -181,4 +176,8 @@ html::-webkit-scrollbar-thumb:active {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+}
+
+.edit-map-form {
+
 }
