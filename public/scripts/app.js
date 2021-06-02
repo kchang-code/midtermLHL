@@ -15,7 +15,7 @@ $(document).ready(() => {
   // CREATE MARKER WHEREVER YOU CLICK
   mymap.on('click', function (e) {
     let marker = new L.marker(e.latlng).addTo(mymap);
-    addMarkerToDB($('#map-edit-id').val(), document.cookie[document.cookie.length - 1], e.latlng.lat, e.latlng.lng);
+    addMarkerToDB($('#map-edit-id').val(), document.cookie[document.cookie.length - 1], parseFloat(e.latlng.lat).toFixed(2), parseFloat(e.latlng.lng).toFixed(2));
     marker.bindPopup(createNewPopUps('titleHere', 'imagehere', 'descriptionHere', e.latlng.lat, e.latlng.lng));
     marker.on("popupopen", onPopupOpen);
   });
@@ -26,11 +26,18 @@ $(document).ready(() => {
     // To remove marker on click of delete button in the popup of marker
     $(".deleteButton:visible").click(function () {
       const pinData = { map_id: $('#map-edit-id').val(), user_id: document.cookie[document.cookie.length - 1], lat: $('#lat').val(), lng: $('#lng').val() };
-      console.log(pinData);
+      console.log('popup open');
       deleteMarker(pinData);
       mymap.removeLayer(tempMarker);
     });
   }
+
+  $(".deleteButton:visible").click(function () {
+    const pinData = { map_id: $('#map-edit-id').val(), user_id: document.cookie[document.cookie.length - 1], lat: $('#lat').val(), lng: $('#lng').val() };
+    console.log('delete success');
+    deleteMarker(pinData);
+    mymap.removeLayer(tempMarker);
+  });
 
   //view all maps
   viewAllMaps();

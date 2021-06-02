@@ -78,11 +78,17 @@ module.exports = (db) => {
 
   //delete pin
   router.delete("/", (req, res) => {
-    let query = `DELETE from pins
-                where map_id='${req.body.map_id}'
-                and user_id='${req.body.user_id}'
-                and lat='${req.body.lat}'
-                and lng='${req.body.lng}';`
+    let query = `
+    DELETE from pins
+    where id in
+    (
+    select id
+    from pins
+    where
+    map_id='${req.body.map_id}'
+    and user_id='${req.body.user_id}'
+
+    );`
     console.log(query);
     db.query(query)
       .then(data => {
