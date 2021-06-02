@@ -41,7 +41,7 @@ html::-webkit-scrollbar-thumb:active {
 
 #mapid {
   height: 480px;
-  width: 80%;
+  width: 60%;
 }
 
 #top-form {
@@ -51,12 +51,7 @@ html::-webkit-scrollbar-thumb:active {
   padding: 10px;
 }
 
-// #edit-map {
-//   display: grid;
-//   grid-template-columns: auto auto auto;
-//   background-color: transparent;
-//   padding: 10px;
-// }
+
 
 #form {
   display: flex;
@@ -103,6 +98,7 @@ input {
   justify-content: center;
   align-items: center;
 
+
 #map-edit-name, #map-edit-description {
   width: 100%;
   padding: 10px 0;
@@ -114,8 +110,6 @@ input {
   outline: none;
   background: transparent;
 }
-
-
 
 }
 
@@ -138,9 +132,7 @@ input {
 }
 
 
-.create-map-button {
-  display: none;
-}
+
 #form-new-map {
   display: flex;
   width: 40%;

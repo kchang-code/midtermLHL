@@ -5,65 +5,59 @@ const createMaps = (maps) => {
       const $maps = `
         <input  type="submit" class="map-name" name="name" value="${maps[i][a].name}">
       `;
-      $("<div id='user-file'>").html($maps).appendTo($(".square-view-all-maps"));
+      $("<div id='user-file'>")
+        .html($maps)
+        .appendTo($(".square-view-all-maps"));
     }
   }
-}
+};
 
 //view all maps
 
 const viewAllMaps = () => {
   $.ajax({
     method: "GET",
-    url: "/maps"
+    url: "/maps",
   }).done((maps) => {
     createMaps(maps);
-  })
-}
-
+  });
+};
 
 //view single map
 const viewSingleMap = (result) => {
-  $('#edit-map').empty('');
+  $("#edit-map").empty("");
   console.log(result.maps[0].description);
   const $map = `
     <div class="edit-map-form">
       <h3>Edit Map</h3>
       <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
       <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
-    </div>
-    <div>
       <input id='map-edit-description' name='description' value="${result.maps[0].description}">
-    </div>
-    <input type='submit' value='Edit' class='editButton'>
+      <input type='submit' value='Edit' class='editButton'>
   `;
   $(`<div>`).html($map).appendTo($("#edit-map"));
-}
-
-
+};
 
 const viewLatestMaps = () => {
   $.ajax({
     method: "GET",
-    url: "/maps/last"
+    url: "/maps/last",
   }).done((maps) => {
     createMaps(maps);
-  })
-}
+  });
+};
 
 //add a map to the database
 
-
 const addMap = (req) => {
   $.ajax({
-    method: 'POST',
-    url: '/maps',
-    data: $(req).serialize()
-  })
-    .then(() => {
-      console.log('form submitted');
-    });
-}
+    method: "POST",
+    url: "/maps",
+    data: $(req).serialize(),
+  }).then(() => {
+    console.log("form submitted");
+  });
+};
 
 //create new popups for a new pin
 const createNewPopUps = (maps) => {
@@ -92,8 +86,7 @@ const createNewPopUps = (maps) => {
         </div>
           `;
   return $popups;
-}
-
+};
 
 // FAVOURITES
 
@@ -104,47 +97,43 @@ const createFavouriteMaps = (favouriteMaps) => {
       <input type= "submit" class="favouriteMap-name" name="favName" value="${favouriteMaps[i][b].id}">
       <i class="fas fa-times-circle fa-lg"></i>
     `;
-      $("<div id='user-file'>").html($favouriteMaps).appendTo($(".square-fav-maps"));
+      $("<div id='user-file'>")
+        .html($favouriteMaps)
+        .appendTo($(".square-fav-maps"));
     }
   }
-}
+};
 
 // view all favorite maps
 const favoriteViewAllMaps = () => {
   $.ajax({
     method: "GET",
-    url: "/favourites"
+    url: "/favourites",
   }).done((favMaps) => {
-    createFavouriteMaps(favMaps)
-  })
-}
-
+    createFavouriteMaps(favMaps);
+  });
+};
 
 // View all latest favourite maps
 const favouriteViewLatestMaps = () => {
   $.ajax({
     method: "GET",
-    url: "/favourites/last"
+    url: "/favourites/last",
   }).done((favMaps) => {
-    createFavouriteMaps(favMaps)
-  })
-}
+    createFavouriteMaps(favMaps);
+  });
+};
 
 // Add favourite maps
 const favouriteAddMap = (req) => {
   $.ajax({
-    method: 'POST',
-    url: '/favourites',
-    data: $(req).serialize()
-  })
-    .then(() => {
-      console.log('favorite form submitted')
-    });
-}
-
-
-
-
+    method: "POST",
+    url: "/favourites",
+    data: $(req).serialize(),
+  }).then(() => {
+    console.log("favorite form submitted");
+  });
+};
 
 //main function
 $(document).ready(() => {
@@ -152,14 +141,15 @@ $(document).ready(() => {
   //  NEW MAP
   const mymap = L.map("mapid").setView([51.505, -0.09], 13);
   const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
-  const attribution = '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+  const attribution =
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   const tiles = L.tileLayer(tileUrl, { attribution });
   tiles.addTo(mymap);
   //make marker editable
   var layerGroup = L.layerGroup().addTo(mymap);
 
   // CREATE MARKER WHEREVER YOU CLICK
-  const markers = mymap.on('click', function (e) {
+  const markers = mymap.on("click", function (e) {
     let marker = new L.marker(e.latlng).addTo(layerGroup);
     marker.bindPopup(createNewPopUps());
     marker.on("popupopen", onPopupOpen);
@@ -175,14 +165,13 @@ $(document).ready(() => {
     });
   }
 
-
   //*****ajax call starts here*****
   //login is handle by the html
 
   //view all maps
   viewAllMaps();
   //add maps
-  $('#map-form').on('submit', function (event) {
+  $("#map-form").on("submit", function (event) {
     event.preventDefault();
     //authentication font-end
     if (!document.cookie) {
@@ -191,69 +180,62 @@ $(document).ready(() => {
     }
     addMap(this);
     viewLatestMaps();
-    $('#title-input').val('');
-    $('#description-input').val('');
+    $("#title-input").val("");
+    $("#description-input").val("");
   });
 
   //create marker on read single map
 
-
-
   //show single map
-  $('.square-view-all-maps').on('click', '.map-name', (event) => {
+  $(".square-view-all-maps").on("click", ".map-name", (event) => {
     event.preventDefault();
     layerGroup.clearLayers();
     //make sure the like button is red
-    $('#favourite-map-heart').css("color", "red");
-    $('form').hide();
+    $("#favourite-map-heart").css("color", "red");
+    $("form").hide();
     //**************** error handling *********
     //****************************************
     $.ajax({
-      method: 'GET',
+      method: "GET",
       url: `/maps/${$(event.target).val()}`,
-    })
-      .then((result) => {
-        //start reading pins for specific map
-        viewSingleMap(result);
-        $.ajax({
-          method: 'GET',
-          url: `/pins/${$('#map-edit-id').val()}`,
-        }).then((result) => {
-          // console.log(result);
-          let lat = 0;
-          let lng = 0;
-          console.log(result.pins);
-          for (const row of result.pins) {
-            // console.log(result[row]);
-            lat = row.lat;
-            lng = row.lng;
-            let marker_map = new L.marker({ lat, lng }).addTo(layerGroup);
-            marker_map.bindPopup('hello');
-            marker_map.on("popupopen", onPopupOpen);
-          }
-          mymap.setView([0, 0], 0);
-        })
-      });
-  });
-
-
-  // SHOW FAVOURITE MAP
-  $('.square-fav-maps').on('click', '.favouriteMap-name', (event) => {
-    event.preventDefault();
-    $.ajax({
-      method: 'GET',
-      url: `/favourites/${$(event.target).val()}`
-    })
-      .then((result) => {
-        favoriteViewAllMaps(result);
+    }).then((result) => {
+      //start reading pins for specific map
+      viewSingleMap(result);
+      $.ajax({
+        method: "GET",
+        url: `/pins/${$("#map-edit-id").val()}`,
+      }).then((result) => {
+        // console.log(result);
+        let lat = 0;
+        let lng = 0;
+        console.log(result.pins);
+        for (const row of result.pins) {
+          // console.log(result[row]);
+          lat = row.lat;
+          lng = row.lng;
+          let marker_map = new L.marker({ lat, lng }).addTo(layerGroup);
+          marker_map.bindPopup("hello");
+          marker_map.on("popupopen", onPopupOpen);
+        }
         mymap.setView([0, 0], 0);
       });
+    });
   });
 
-
+  // SHOW FAVOURITE MAP
+  $(".square-fav-maps").on("click", ".favouriteMap-name", (event) => {
+    event.preventDefault();
+    $.ajax({
+      method: "GET",
+      url: `/favourites/${$(event.target).val()}`,
+    }).then((result) => {
+      favoriteViewAllMaps(result);
+      mymap.setView([0, 0], 0);
+    });
+  });
 
   //edit map
-  $('#edit-map').on('click', '.editButton', (event) => {
+  $("#edit-map").on("click", ".editButton", (event) => {
     event.preventDefault();
     console.log(document.cookie);
     //authentication font-end
@@ -261,12 +243,16 @@ $(document).ready(() => {
       alert("Hello! Please login first!!");
       afterClick();
     }
-    let mapData = { id: $('#map-edit-id').val(), name: $('#map-edit-name').val(), description: $('#map-edit-description').val() };
+    let mapData = {
+      id: $("#map-edit-id").val(),
+      name: $("#map-edit-name").val(),
+      description: $("#map-edit-description").val(),
+    };
     // let passData = JSON.parse(mapData);
     $.ajax({
-      method: 'PUT',
+      method: "PUT",
       url: `/maps/edit`,
-      data: mapData
+      data: mapData,
     }).then((result) => {
       $(".square-view-all-maps").empty();
       viewAllMaps();
@@ -274,40 +260,44 @@ $(document).ready(() => {
   });
 
   //favourtie map
-  $('#favourite-map-heart').on('click', (event) => {
+  $("#favourite-map-heart").on("click", (event) => {
     event.preventDefault();
-    let color = $('#favourite-map-heart').css("color");
+    let color = $("#favourite-map-heart").css("color");
     console.log(color);
     console.log(document.cookie[document.cookie.length - 1]);
-    console.log($('#map-edit-id').val());
-    let unique_id = `${document.cookie[document.cookie.length - 1]}-${$('#map-edit-id').val()}`;
-    if (color === 'rgb(255, 0, 0)') {
-      console.log("BITTFUNK", unique_id)
-      console.log('success');
+    console.log($("#map-edit-id").val());
+    let unique_id = `${document.cookie[document.cookie.length - 1]}-${$(
+      "#map-edit-id"
+    ).val()}`;
+    if (color === "rgb(255, 0, 0)") {
+      console.log("BITTFUNK", unique_id);
+      console.log("success");
       $.ajax({
-        method: 'POST',
+        method: "POST",
         url: `/favourites`,
-        data: { user_id: document.cookie[document.cookie.length - 1], map_id: $('#map-edit-id').val() }
-      })
-        .then((result) => {
-          console.log(result);
-          $(`<div id='${unique_id}'>`).html($('#map-edit-name').val()).appendTo($(".square-fav-maps"));
-          $('#favourite-map-heart').css("color", "blue");
-        });
+        data: {
+          user_id: document.cookie[document.cookie.length - 1],
+          map_id: $("#map-edit-id").val(),
+        },
+      }).then((result) => {
+        console.log(result);
+        $(`<div id='${unique_id}'>`)
+          .html($("#map-edit-name").val())
+          .appendTo($(".square-fav-maps"));
+        $("#favourite-map-heart").css("color", "blue");
+      });
     } else {
       $.ajax({
-        method: 'DELETE',
+        method: "DELETE",
         url: `/favourites`,
-        data: { user_id: document.cookie[document.cookie.length - 1], map_id: $('#map-edit-id').val() }
-      })
-        .then((result) => {
-          $(`#${unique_id}`).remove();
-          $('#favourite-map-heart').css("color", "red");
-        });
+        data: {
+          user_id: document.cookie[document.cookie.length - 1],
+          map_id: $("#map-edit-id").val(),
+        },
+      }).then((result) => {
+        $(`#${unique_id}`).remove();
+        $("#favourite-map-heart").css("color", "red");
+      });
     }
   });
-
-
-
-
-})
+});
