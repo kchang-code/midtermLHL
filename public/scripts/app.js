@@ -25,7 +25,7 @@ const viewAllMaps = () => {
 //view single map
 const viewSingleMap = (result) => {
   $('#edit-map').empty('');
-  console.log(result.maps[0].description);
+  // console.log(result.maps[0].description);
   const $map = `
     <div>
       <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
@@ -39,6 +39,22 @@ const viewSingleMap = (result) => {
   $(`<div>`).html($map).appendTo($("#edit-map"));
 }
 
+// VUEW SINGLE FAVOURITE MAP
+const favouriteViewSingleMap = (result) => {
+  $('#editFavourite-map').empty('');
+  console.log('Bitterwaht', result.maps[0].id);
+  const $map = `
+    <div>
+      <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
+      <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
+    </div>
+    <div>
+      <input id='map-edit-description' name='description' value="${result.maps[0].description}">
+    </div>
+    <input type='submit' value='Edit' class='editButton'>
+  `;
+  $(`<div>`).html($map).appendTo($("#edit-map"));
+}
 
 
 const viewLatestMaps = () => {
@@ -100,21 +116,24 @@ const createFavouriteMaps = (favouriteMaps) => {
   for (const i in favouriteMaps) {
     for (const b in favouriteMaps[i]) {
       const $favouriteMaps = `
-      <input type= "submit" class="favouriteMap-name" name="favName" value="${favouriteMaps[i][b].id}">
-      <i class="fas fa-times-circle fa-lg"></i>
+      <input type= "submit" class="favouriteMap-name" name="favName" value="${favouriteMaps[i][b].name}">
+      <div id='removeFav' onclick="location.href='#';" style="cursor: pointer;"> <i class="fas fa-times-circle fa-lg"></i></div>
     `;
       $("<div id='user-file'>").html($favouriteMaps).appendTo($(".square-fav-maps"));
     }
   }
 }
 
+
+
 // view all favorite maps
 const favoriteViewAllMaps = () => {
   $.ajax({
     method: "GET",
-    url: "/favourites"
+    url: "/favourites",
+    data: { user_id : '123' }
   }).done((favMaps) => {
-    createFavouriteMaps(favMaps)
+    // createFavouriteMaps(favMaps)
   })
 }
 
@@ -130,16 +149,16 @@ const favouriteViewLatestMaps = () => {
 }
 
 // Add favourite maps
-const favouriteAddMap = (req) => {
-  $.ajax({
-    method: 'POST',
-    url: '/favourites',
-    data: $(req).serialize()
-  })
-    .then(() => {
-      console.log('favorite form submitted')
-    });
-}
+// const favouriteAddMap = (req) => {
+//   $.ajax({
+//     method: 'POST',
+//     url: '/favourites',
+//     data: $(req).serialize()
+//   })
+//     .then(() => {
+//       console.log('favorite form submitted')
+//     });
+// }
 
 
 
@@ -180,6 +199,7 @@ $(document).ready(() => {
 
   //view all maps
   viewAllMaps();
+  favoriteViewAllMaps();
   //add maps
   $('#map-form').on('submit', function (event) {
     event.preventDefault();
@@ -193,6 +213,8 @@ $(document).ready(() => {
     $('#title-input').val('');
     $('#description-input').val('');
   });
+
+
 
   //create marker on read single map
 
@@ -220,7 +242,7 @@ $(document).ready(() => {
           // console.log(result);
           let lat = 0;
           let lng = 0;
-          console.log(result.pins);
+          console.log('BITTERFUNK PINKS', result.pins);
           for (const row of result.pins) {
             // console.log(result[row]);
             lat = row.lat;
@@ -238,15 +260,68 @@ $(document).ready(() => {
   // SHOW FAVOURITE MAP
   $('.square-fav-maps').on('click', '.favouriteMap-name', (event) => {
     event.preventDefault();
+    $("#edit-map").empty();
+    layerGroup.clearLayers();
     $.ajax({
       method: 'GET',
-      url: `/favourites/${$(event.target).val()}`
+      url: `/maps/${$(event.target).val()}`
     })
       .then((result) => {
-        favoriteViewAllMaps(result);
+        // console.log('BITTERFUNK', result)
+        // console.log('Wait wtf', favouriteMaps[0]);;
+        $.ajax({
+          method: 'GET',
+          url: `/maps/${$(event.target).val()}`,
+        })
+          .then((result) => {
+            //start reading pins for specific map
+            viewSingleMap(result);
+            $.ajax({
+              method: 'GET',
+              url: `/pins/${$('#map-edit-id').val()}`,
+            }).then((result) => {
+              // console.log(result);
+              let lat = 0;
+              let lng = 0;
+              console.log('BITTERFUNK PINKS', result.pins);
+              for (const row of result.pins) {
+                // console.log(result[row]);
+                lat = row.lat;
+                lng = row.lng;
+                let marker_map = new L.marker({ lat, lng }).addTo(layerGroup);
+                marker_map.bindPopup('hello');
+                marker_map.on("popupopen", onPopupOpen);
+              }
+              mymap.setView([0, 0], 0);
+            })
+          });
+        favouriteViewSingleMap(result);
         mymap.setView([0, 0], 0);
+      })
+      .then((result) => {
+        //start reading pins for specific map
+        favouriteViewSingleMap(result);
+        $.ajax({
+          method: 'GET',
+          url: `/pins/${$('#map-edit-id').val()}`,
+        }).then((result) => {
+          // console.log(result);
+          let lat = 0;
+          let lng = 0;
+          console.log(result.pins);
+          for (const row of result.pins) {
+            // console.log(result[row]);
+            lat = row.lat;
+            lng = row.lng;
+            let marker_map = new L.marker({ lat, lng }).addTo(layerGroup);
+            marker_map.bindPopup('hello');
+            marker_map.on("popupopen", onPopupOpen);
+          }
+          mymap.setView([0, 0], 0);
+        })
       });
   });
+  // favoriteViewAllMaps();
 
 
 
@@ -275,13 +350,12 @@ $(document).ready(() => {
   $('#favourite-map-heart').on('click', (event) => {
     event.preventDefault();
     let color = $('#favourite-map-heart').css("color");
-    console.log(color);
-    console.log(document.cookie[document.cookie.length - 1]);
-    console.log($('#map-edit-id').val());
+    // console.log(color);
+    // console.log(document.cookie[document.cookie.length - 1]);
+    // console.log($('#map-edit-id').val());
     let unique_id = `${document.cookie[document.cookie.length - 1]}-${$('#map-edit-id').val()}`;
     if (color === 'rgb(255, 0, 0)') {
-      console.log("BITTFUNK", unique_id)
-      console.log('success');
+      // console.log('success');
       $.ajax({
         method: 'POST',
         url: `/favourites`,
@@ -304,6 +378,28 @@ $(document).ready(() => {
         });
     }
   });
+
+
+
+
+
+  // ALMOST WORKING JUST CANT FIGURE OUT HOW TO MAKE map_id NOT UNDEFINED
+  $(document).on('click', '#removeFav', (event) => {
+    let unique_id = `${document.cookie[document.cookie.length - 1]}-${$('#map-edit-id').val()}`;
+    console.log('BITTERFUNK', 'ive been clicked')
+    $.ajax({
+      method: 'DELETE',
+      url: `/favourites`,
+      data: { user_id: document.cookie[document.cookie.length - 1], map_id: $('#map-edit-id').val() }
+    })
+    .then((result) => {
+      $(`#${unique_id}`).remove();
+      // $('#favourite-map-heart').css("color", "red");
+    });
+  });
+
+
+
 })
 
 

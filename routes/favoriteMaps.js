@@ -12,10 +12,20 @@ module.exports = (db) => {
 
   //read all favourite maps
   router.get("/", (req, res) => {
-    let query = `SELECT * FROM favourite_maps`;
+    let query = `SELECT maps.name
+                FROM maps
+                JOIN favourite_maps ON favourite_maps.id = maps.id
+                WHERE favourite_maps.user_id = ${req.body.user_id}`;
+
+    // let userID = req.params;
+    // let query = `SELECT *, maps.name FROM favourite_maps
+    // JOIN maps ON maps.id = map_id
+    // WHERE user_id = ${userId}`;
+    console.log(req);
     console.log(query);
     db.query(query)
-      .then(data => {
+    .then(data => {
+
         const favouriteMaps = data.rows;
         res.json({ favouriteMaps });
       })
@@ -45,12 +55,17 @@ module.exports = (db) => {
 
 //  Read single favourite map
   router.get("/:id", (req, res) => {
-    let query = `SELECT * FROM favourite_maps WHERE favourite_maps.id ='${req.params.id}'`;
+    // let query = `SELECT * FROM favourite_maps WHERE favourite_maps.id ='${req.params.id}'`;
+
+    let query = `SELECT *, maps.name FROM favourite_maps
+    JOIN maps ON maps.id = map_id
+    WHERE maps.name = '${req.params.id}'`
+    console.log(req.cookies);
     console.log(query);
     db.query(query)
       .then(data => {
         const favouriteMaps = data.rows;
-        console.log(favouriteMaps);
+        // console.log(favouriteMaps);
         res.json({ favouriteMaps });
       })
       .catch(err => {
@@ -84,6 +99,7 @@ module.exports = (db) => {
   router.delete("/", (req, res) => {
     const userId = req.body.user_id;
     const mapId = req.body.map_id;
+    console.log('Bitterlicious', req.body)
     let query = `DELETE FROM favourite_maps WHERE map_id = '${mapId}' and user_id='${userId}';`;
     console.log(query);
     db.query(query)
