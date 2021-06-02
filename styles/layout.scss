@@ -78,10 +78,12 @@ html::-webkit-scrollbar-thumb:active {
 }
 
 #user-file {
-  border-style: 200px, solid, black;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  color: #244751;
+  background: transparent;
+  border: 2px solid #0099cc;
+  border-radius: 6px;
+  overflow: hidden;
+  overflow-y: scroll;
 }
 
 #mapContainer {
@@ -104,21 +106,41 @@ html::-webkit-scrollbar-thumb:active {
   overflow-y: scroll;
   height: 120px;
 
+  button, input[type="submit"] {
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    font: inherit;
+    cursor: pointer;
+    outline: inherit;
+
+  }
+
+  #user-file:hover {
+    background-color: #008cba;
+    color: white;
+
+  }
+
+
+
+
 }
 
-.map-name {
-  color: #244751;
-  background: transparent;
-  border: 2px solid #0099cc;
-  border-radius: 6px;
-  overflow: hidden;
-  overflow-y: scroll;
-}
+// .map-name {
+//   color: #244751;
+//   background: transparent;
+//   border: 2px solid #0099cc;
+//   border-radius: 6px;
+//   overflow: hidden;
+//   overflow-y: scroll;
+// }
 
-.map-name:hover {
-  background-color: #008cba;
-  color: white;
-}
+// .map-name:hover {
+//   background-color: #008cba;
+//   color: white;
+// }
 
 .square-fav-maps {
   text-align: center;
@@ -131,20 +153,30 @@ html::-webkit-scrollbar-thumb:active {
   overflow: hidden;
   overflow-y: scroll;
   height: 120px;
-}
-#user-file {
-  text-align: center;
-}
 
-#2-1{
-  color: #244751;
-  background: transparent;
-  border: 2px solid #0099cc;
-  border-radius: 6px;
-  overflow: hidden;
-  overflow-y: scroll;
-}
+  div {
+    color: #244751;
+    background: transparent;
+    border: 2px solid #0099cc;
+    border-radius: 6px;
+    overflow: hidden;
+    overflow-y: scroll;
+  }
 
+  div:hover {
+    background-color: #008cba;
+    color: white;
+
+  }
+}
+// #user-file {
+//   text-align: center;
+// }
+
+.fav-map-input {
+  display: flex;
+  color: blue;
+}
 #popupButtons {
   display: flex;
   flex-direction: row;
