@@ -157,16 +157,19 @@ html::-webkit-scrollbar-thumb:active {
 
 #mapContainer {
   display: flex;
-  flex-direction: rows;
-  justify-content: space-around;
-  padding-top: 20px;
+  width:100%;
+  height:100px;
+  background-color:transparent;
+
+  div {
+    flex-basis: 100%;
+  }
 }
 
 .square-view-all-maps {
   // border: solid;
   text-align: center;
   display: block;
-  justify-content: space-between;
   flex-basis: 0;
   -webkit-box-flex: 1;
   flex-grow: 1;
@@ -209,7 +212,6 @@ html::-webkit-scrollbar-thumb:active {
   div {
     color: black;
     background: transparent;
-    // border: 2px solid #0099cc;
     border-radius: 6px;
     overflow: hidden;
     overflow-y: scroll;
@@ -221,6 +223,9 @@ html::-webkit-scrollbar-thumb:active {
   }
 }
 
+.square-user-contributions {
+
+}
 .fav-map-input {
   display: flex;
   color: blue;
