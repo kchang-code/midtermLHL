@@ -28,6 +28,7 @@ const viewSingleMap = (result) => {
   console.log(result.maps[0].description);
   const $map = `
     <div>
+      <h3>Edit Map</h3>
       <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
       <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
     </div>
