@@ -118,10 +118,10 @@ html::-webkit-scrollbar-thumb:active {
   -webkit-font-smoothing: antialiased;
 }
 
-// #edit-map {
-//   z-index: 1;
-//   padding-top: 50px;
-// }
+.create-map-button {
+  display: none;
+  padding-left: 15px;
+}
 
 .fa-heart:hover {
   color: blue;

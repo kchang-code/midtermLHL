@@ -193,6 +193,8 @@ $(document).ready(() => {
     //make sure the like button is red
     $("#favourite-map-heart").css("color", "red");
     $("form").hide();
+    $('#edit-map').show();
+    $(".create-map-button").show();
     //**************** error handling *********
     //****************************************
     $.ajax({
@@ -300,4 +302,11 @@ $(document).ready(() => {
       });
     }
   });
+
+  // back to create map button
+  $('.create-map-button').on("click", () => {
+    $('#edit-map').hide();
+    $('form').show();
+    $('.create-map-button').hide();
+  })
 });
