@@ -24,13 +24,13 @@ const createMaps = (maps) => {
 const viewSingleMap = (result) => {
   $('#edit-map').empty('');
   const $map = `
-  <div class="edit-map-form">
-  <h3>Edit Map</h3>
-  <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
-  <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
-  <input id='map-edit-description' name='description' value="${result.maps[0].description}">
-  <input type='submit' value='Edit' class='editButton'>
-`;
+    <div class="edit-map-form">
+      <h3>Edit Map</h3>
+      <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
+      <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
+      <input id='map-edit-description' name='description' value="${result.maps[0].description}">
+      <input type='submit' value='Edit' class='editButton'>
+  `;
   $(`<div>`).html($map).appendTo($("#edit-map"));
 }
 
