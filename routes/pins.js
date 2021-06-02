@@ -56,11 +56,12 @@ module.exports = (db) => {
         '${req.body.user_id}',
         '${req.body.lat}',
         '${req.body.lng}'
-      )`;
+      );`
     console.log(query);
     db.query(query)
       .then(data => {
         const pins = data.rows;
+        console.log(pins);
         res.json({ pins });
       })
       .catch(err => {
@@ -70,16 +71,22 @@ module.exports = (db) => {
       });
   });
 
+
+
   //edit pin
 
 
   //delete pin
-  router.delete("/:title", (req, res) => {
-    let query = `DELETE from pins where pins.title='${req.params.title}';`
+  router.delete("/", (req, res) => {
+    let query = `DELETE from pins
+                where map_id='${req.body.map_id}'
+                and user_id='${req.body.user_id}'
+                and lat='${req.body.lat}'
+                and lng='${req.body.lng}';`
     console.log(query);
     db.query(query)
       .then(data => {
-        res.send('data created');
+        res.send('data deleted');
       })
       .catch(err => {
         res
