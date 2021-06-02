@@ -1,10 +1,12 @@
 //view all maps
-const viewAllMaps = () => {
+const viewAllMaps = (user_id) => {
   $.ajax({
     method: "GET",
     url: "/maps"
   }).done((maps) => {
     createMaps(maps);
+    console.log(user_id);
+    viewAllFavouriteMaps(user_id);
   })
 }
 
@@ -67,3 +69,4 @@ const editMap = (mapData) => {
     viewAllMaps();
   });
 }
+
