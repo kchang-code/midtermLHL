@@ -4,8 +4,8 @@ const createNewPopUps = (title, image, description, lat, lng) => {
         <div id='pin-pop'>
         <input id='popupTitle' value='${title}'>
         <img id="output" width="200" height="200" src="${image}">
-        <input id='popupImage' value="${image}">
         <input id='popupDescription' value='${description}'>
+        <input id='popupImage' value="${image}">
         <input id='lat' value='${lat}' type='hidden'>
         <input id='lng' value='${lng}' type='hidden'>
         <div id='popupButtons'>
