@@ -15,7 +15,7 @@ $(document).ready(() => {
     addMarkerToDB($('#map-edit-id').val(), document.cookie[document.cookie.length - 1], parseFloat(e.latlng.lat).toFixed(2), parseFloat(e.latlng.lng).toFixed(2));
     $('.square-user-contributions').empty();
     viewAllContributeMaps(document.cookie[document.cookie.length - 1]);
-    marker.bindPopup(createNewPopUps('titleHere', 'imagehere', 'descriptionHere', e.latlng.lat, e.latlng.lng));
+    marker.bindPopup(createNewPopUps('Insert Title Here', '/images/Default.png', 'Insert Description Here', e.latlng.lat, e.latlng.lng));
     marker.on("popupopen", onPopupOpen);
   });
 
