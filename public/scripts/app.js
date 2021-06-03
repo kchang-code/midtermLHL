@@ -43,7 +43,8 @@ $(document).ready(() => {
         image: $('#popupImage').val(),
         map_id: $('#map-edit-id').val(),
         user_id: document.cookie[document.cookie.length - 1],
-        lat: $('#lat').val(), lng: $('#lng').val()
+        lat: parseFloat($('#lat').val()).toFixed(2),
+        lng: parseFloat($('#lng').val()).toFixed(2)
       };
       editMarker(editPinData);
     });
