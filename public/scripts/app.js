@@ -1,22 +1,20 @@
 $(document).ready(() => {
   //create new map on web page with leaflef api
-  const mymap = L.map("mapid").setView([0, 0], 0);
+  const mymap = L.map("mapid").setView([56.94, -113.55], 4);
   const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const attribution =
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
   const tiles = L.tileLayer(tileUrl, { attribution });
   tiles.addTo(mymap);
 
-  //make marker editable
-  const layerGroup = L.layerGroup().addTo(mymap);
-
   //login is handle by the html
 
-  // create pins
-  // CREATE MARKER WHEREVER YOU CLICK
+  // create marker
   mymap.on('click', function (e) {
     let marker = new L.marker(e.latlng).addTo(mymap);
     addMarkerToDB($('#map-edit-id').val(), document.cookie[document.cookie.length - 1], parseFloat(e.latlng.lat).toFixed(2), parseFloat(e.latlng.lng).toFixed(2));
+    $('.square-user-contributions').empty();
+    viewAllContributeMaps(document.cookie[document.cookie.length - 1]);
     marker.bindPopup(createNewPopUps('titleHere', 'imagehere', 'descriptionHere', e.latlng.lat, e.latlng.lng));
     marker.on("popupopen", onPopupOpen);
   });
@@ -33,6 +31,8 @@ $(document).ready(() => {
         lng: parseFloat($('#lng').val()).toFixed(2)
       };
       deleteMarker(pinData);
+      $('.square-user-contributions').empty();
+      viewAllContributeMaps(document.cookie[document.cookie.length - 1]);
       mymap.removeLayer(tempMarker);
     });
     //edit marker
@@ -71,7 +71,7 @@ $(document).ready(() => {
     mymap.eachLayer(function (layer) {
       layer._leaflet_id !== 26 ? mymap.removeLayer(layer) : '';
     });
-    layerGroup.clearLayers();
+
     //make sure the like button is red
     $("#favourite-map-heart").css("color", "red");
     $("#form").hide();
@@ -98,7 +98,7 @@ $(document).ready(() => {
             marker_map.bindPopup(createNewPopUps(row.title, row.image, row.description, lat, lng));
             marker_map.on("popupopen", onPopupOpen);
           }
-          mymap.setView([0, 0], 0);
+          mymap.setView([56.94, -113.55], 4);
         })
       });
   });
