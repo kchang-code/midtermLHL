@@ -81,3 +81,20 @@ const deleteMarker = (pinData) => {
   })
 }
 
+//insert marker values
+const insertMarker = (mymap) => {
+  $.ajax({
+    method: 'GET',
+    url: `/pins/${$('#map-edit-id').val()}`,
+  }).then((result) => {
+    let lat = 0;
+    let lng = 0;
+    for (const row of result.pins) {
+      lat = row.lat;
+      lng = row.lng;
+      let marker_map = new L.marker({ lat, lng }).addTo(mymap);
+      marker_map.bindPopup(createNewPopUps(row.title, row.image, row.description, lat, lng));
+      marker_map.on("popupopen", onPopupOpen);
+    }
+  })
+}

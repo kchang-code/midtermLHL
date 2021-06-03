@@ -59,6 +59,27 @@ module.exports = (db) => {
       });
   });
 
+  //read contribution map
+  router.get("/:id", (req, res) => {
+    let query = `
+                SELECT maps.name
+                FROM maps
+                Join
+                WHERE maps.name ='${req.params.name}'`;
+    console.log(query);
+    db.query(query)
+      .then(data => {
+        const maps = data.rows;
+        console.log(maps);
+        res.json({ maps });
+      })
+      .catch(err => {
+        res
+          .status(500)
+          .json({ error: err.message });
+      });
+  });
+
   //add a map to the db
   router.post("/", (req, res) => {
     let query = `INSERT INTO maps (name,description) VALUES ('${req.body.name}','${req.body.description}');`;
@@ -75,7 +96,7 @@ module.exports = (db) => {
       });
   });
 
-  //edit  maps.descripton='${req.body.description}',
+  //edit maps
   router.put("/edit", (req, res) => {
     let query = `update maps set name='${req.body.name}', description='${req.body.description}' where id='${req.body.id}';`;
     console.log(req.body);

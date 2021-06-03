@@ -29,8 +29,8 @@ $(document).ready(() => {
       const pinData = {
         map_id: $('#map-edit-id').val(),
         user_id: document.cookie[document.cookie.length - 1],
-        lat: $('#lat').val(),
-        lng: $('#lng').val()
+        lat: parseFloat($('#lat').val()).toFixed(2),
+        lng: parseFloat($('#lng').val()).toFixed(2)
       };
       deleteMarker(pinData);
       mymap.removeLayer(tempMarker);
@@ -50,7 +50,11 @@ $(document).ready(() => {
   }
 
   //view all maps
-  viewAllMaps();
+  const user_id = 2//Number(document.cookie[document.cookie.length - 1]);
+  viewAllMaps(user_id);
+  // console.log(user_id);
+  //viewAllFavouriteMaps(user_id);
+
   //add maps
   $("#map-form").on("submit", function (event) {
     event.preventDefault();
@@ -81,6 +85,7 @@ $(document).ready(() => {
       .then((result) => {
         //start reading pins for specific map
         viewSingleMap(result);
+        // insertMarker(mymap);
         $.ajax({
           method: 'GET',
           url: `/pins/${$('#map-edit-id').val()}`,
@@ -99,20 +104,20 @@ $(document).ready(() => {
       });
   });
 
-// back to create map button
-$('.create-map-button').on("click", () => {
-  console.log('im here');
-  $('#edit-map').hide();
-  $('#form').show();
-  $('.create-map-button').hide();
-});
+  // back to create map button
+  $('.create-map-button').on("click", () => {
+    console.log('im here');
+    $('#edit-map').hide();
+    $('#form').show();
+    $('.create-map-button').hide();
+  });
 
-//edit map
-$('#edit-map').on('click', '.editButton', (event) => {
-  event.preventDefault();
-  loginCheck();
-  let mapData = { id: $('#map-edit-id').val(), name: $('#map-edit-name').val(), description: $('#map-edit-description').val() };
-  editMap(mapData);
-});
+  //edit map
+  $('#edit-map').on('click', '.editButton', (event) => {
+    event.preventDefault();
+    loginCheck();
+    let mapData = { id: $('#map-edit-id').val(), name: $('#map-edit-name').val(), description: $('#map-edit-description').val() };
+    editMap(mapData);
+  });
 
 });
