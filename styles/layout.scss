@@ -43,6 +43,84 @@ html::-webkit-scrollbar-thumb:active {
   width: 60%;
 }
 
+#pin-pop {
+  #popupTitle {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 11px;
+    color: black;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    background: transparent;
+  }
+
+  #popupImage {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 11px;
+    color: black;
+    margin-bottom: 30px;
+    border: none;
+    border-bottom: 1px solid black;
+    outline: none;
+    background: transparent;
+  }
+
+#popupDescription {
+  width: 100%;
+  padding: 10px 0;
+  font-size: 11px;
+  color: black;
+  margin-bottom: 30px;
+  border: none;
+  border-bottom: 1px solid black;
+  outline: none;
+  background: transparent;
+
+}
+
+.deleteButton {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-radius: 0.317rem;
+  background-color: #aaa;
+  color: black;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+  }
+
+.editButton {
+  display: inline-block;
+  margin: 0;
+  padding: 0.5rem 0.75rem;
+  border: 0;
+  border-radius: 0.317rem;
+  background-color: #aaa;
+  color: black;
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.5;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -webkit-font-smoothing: antialiased;
+}
+
+}
+
+.leaflet-popup-content-wrapper {
+  width: 300px;
+}
+
 #form {
   display: grid;
   grid-template-columns: auto auto auto;
@@ -193,7 +271,6 @@ html::-webkit-scrollbar-thumb:active {
   #user-file:hover {
     background-color: #aaa;
     color: white;
-    // box-sizing: border-box
   }
 }
 
@@ -224,6 +301,16 @@ html::-webkit-scrollbar-thumb:active {
 }
 
 .square-user-contributions {
+  text-align: center;
+  display: block;
+  justify-content: space-between;
+  flex-basis: 0;
+  -webkit-box-flex: 1;
+  flex-grow: 1;
+  flex-shrink: 1;
+  overflow: hidden;
+  overflow-y: scroll;
+  height: 120px;
 
 }
 .fav-map-input {
@@ -235,3 +322,4 @@ html::-webkit-scrollbar-thumb:active {
   flex-direction: row;
   justify-content: space-around;
 }
+
