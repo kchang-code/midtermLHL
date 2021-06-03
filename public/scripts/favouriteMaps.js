@@ -24,7 +24,6 @@ const refreshAllFavouriteMaps = (user_id) => {
 const createFavouriteMaps = (maps) => {
   for (const i in maps) {
     for (const a in maps[i]) {
-      console.log(maps[i][a]);
       $("<div>").html(maps[i][a].name).appendTo($('.square-fav-maps'));
     }
   }
@@ -45,7 +44,6 @@ const viewAllContributeMaps = (user_id) => {
 const createContributeMaps = (maps) => {
   for (const i in maps) {
     for (const a in maps[i]) {
-      console.log(maps[i][a]);
       $("<div>").html(maps[i][a].name).appendTo($('.square-user-contributions'));
     }
   }

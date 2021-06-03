@@ -77,7 +77,7 @@ module.exports = (db) => {
                 update pins
                 set title='${req.body.title}',
                 description='${req.body.description}',
-                image='${req.body.description}'
+                image='${req.body.image}'
                 where
                 map_id='${req.body.map_id}'
                 and user_id='${req.body.user_id}'
