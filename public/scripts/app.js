@@ -103,6 +103,7 @@ $(document).ready(() => {
       });
   });
 
+
   // back to create map button
   $('.create-map-button').on("click", () => {
     $('#edit-map').hide();
