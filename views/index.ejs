@@ -30,7 +30,6 @@
 
 
 </head>
-
 <header>
   <nav class="navbar navbar-expand-md navbar-dark bg-success">
     <a class="navbar-brand" href="/urls">WikiMap</a>
@@ -48,8 +47,19 @@
 </header>
 
 <body>
-  <section id="top">
 
+<!-- USED TO RENDER UPLOADED PICTURE TO POPUP -->
+  <script>
+  var loadFile = function(event) {
+    var image = document.getElementById('output');
+    image.src = URL.createObjectURL(event.target.files[0]);
+  };
+  </script>
+
+
+
+
+  <section id="top">
     <div id="mapid"></div>
     <div id='top-form'>
       <div class="btn">
@@ -67,6 +77,9 @@
       </div>
       <div id="edit-map">
         <!-- this div is used for testing showing single maps -->
+      </div>
+      <div id='editFavourite-map'>
+        <!-- this div is used for testing showing favourite single maps -->
       </div>
     </div>
   </section>

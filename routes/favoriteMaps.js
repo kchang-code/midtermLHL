@@ -22,7 +22,8 @@ module.exports = (db) => {
               ;`;
     console.log(query);
     db.query(query)
-      .then(data => {
+    .then(data => {
+
         const favouriteMaps = data.rows;
         res.json({ favouriteMaps });
       })
