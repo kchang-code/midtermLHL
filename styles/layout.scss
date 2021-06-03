@@ -1,7 +1,7 @@
 // See: https://sass-lang.com/
 
 body {
-  background-color: rgb(224, 220, 220);
+  background-color: rgb(220, 222, 224);
 
   h1 {
     color: #244751;
@@ -347,3 +347,14 @@ html::-webkit-scrollbar-thumb:active {
   justify-content: space-around;
 }
 
+footer {
+  height: 75px;
+  width: 100%;
+  background-color: darkgreen;
+  margin-top: 100px;
+}
+
+#footerInfo {
+  float: right;
+  font-size: 1.5em;
+}

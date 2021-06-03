@@ -1,10 +1,11 @@
 $(document).ready(() => {
   //create new map on web page with leaflef api
-  const mymap = L.map("mapid").setView([56.94, -113.55], 4);
+  const mymap = L.map("mapid").setView([20, 0], 2.25);
   const tileUrl = "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png";
   const attribution =
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors';
-  const tiles = L.tileLayer(tileUrl, { attribution });
+  // const tiles = L.tileLayer(tileUrl, { attribution });
+  const tiles = L.tileLayer(tileUrl, { noWrap: true, attribution });
   tiles.addTo(mymap);
 
   //login is handle by the html
@@ -98,7 +99,7 @@ $(document).ready(() => {
             marker_map.bindPopup(createNewPopUps(row.title, row.image, row.description, lat, lng));
             marker_map.on("popupopen", onPopupOpen);
           }
-          mymap.setView([56.94, -113.55], 4);
+          mymap.setView([20, 0], 2.25);
         })
       });
   });
