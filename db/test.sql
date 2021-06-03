@@ -1,9 +1,5 @@
-update pins
-set title='123',
-description='description',
-image='description'
-where
-map_id='2'
-and user_id='2'
-and lat='43.07'
-and lng='34.11'
+select distinct maps.name
+from maps
+join pins on maps.id=pins.map_id
+join users on users.id=pins.user_id
+where pins.user_id=1;

@@ -50,11 +50,9 @@ $(document).ready(() => {
     });
   }
 
-  //view all maps
-  const user_id = 2//Number(document.cookie[document.cookie.length - 1]);
+  //view all three maps with promises
+  const user_id = document.cookie[document.cookie.length - 1];
   viewAllMaps(user_id);
-  // console.log(user_id);
-  //viewAllFavouriteMaps(user_id);
 
   //add maps
   $("#map-form").on("submit", function (event) {
@@ -105,9 +103,9 @@ $(document).ready(() => {
       });
   });
 
+
   // back to create map button
   $('.create-map-button').on("click", () => {
-    console.log('im here');
     $('#edit-map').hide();
     $('#form').show();
     $('.create-map-button').hide();
@@ -121,4 +119,34 @@ $(document).ready(() => {
     editMap(mapData);
   });
 
+  //favourite map button
+  $('#favourite-map-heart').on('click', (event) => {
+    event.preventDefault();
+    let color = $('#favourite-map-heart').css("color");
+    if (color === 'rgb(255, 0, 0)') {
+      // console.log('success');
+      $.ajax({
+        method: 'POST',
+        url: `/favourites`,
+        data: { user_id: document.cookie[document.cookie.length - 1], map_id: $('#map-edit-id').val() }
+      })
+        .then((result) => {
+          console.log(result);
+          $('.square-fav-maps').empty();
+          refreshAllFavouriteMaps(document.cookie[document.cookie.length - 1]);
+          $('#favourite-map-heart').css("color", "blue");
+        });
+    } else {
+      $.ajax({
+        method: 'DELETE',
+        url: `/favourites`,
+        data: { user_id: document.cookie[document.cookie.length - 1], map_id: $('#map-edit-id').val() }
+      })
+        .then((result) => {
+          $('.square-fav-maps').empty();
+          refreshAllFavouriteMaps(document.cookie[document.cookie.length - 1]);
+          $('#favourite-map-heart').css("color", "red");
+        });
+    }
+  })
 });

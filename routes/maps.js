@@ -60,12 +60,15 @@ module.exports = (db) => {
   });
 
   //read contribution map
-  router.get("/:id", (req, res) => {
+  router.get("/contribute/:id", (req, res) => {
+    console.log(req.params);
     let query = `
-                SELECT maps.name
-                FROM maps
-                Join
-                WHERE maps.name ='${req.params.name}'`;
+              select distinct maps.name
+              from maps
+              join pins on maps.id=pins.map_id
+              join users on users.id=pins.user_id
+              where pins.user_id='${req.params.id}';
+              `;
     console.log(query);
     db.query(query)
       .then(data => {
