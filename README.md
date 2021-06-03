@@ -3,13 +3,12 @@ LHL Node Skeleton
 
 ## Project Setup
 
-The following steps are only for _one_ of the group members to perform.
+Wiki Maps is a Lighthouse Labs midterm project created by Jiaqi, Cecil, and Khea. 
 
-1. Create your own copy of this repo using the `Use This Template` button, ideally using the name of your project. The repo should be marked Public
-2. Verify that the skeleton code now shows up in your repo on GitHub, you should be automatically redirected
-3. Clone your copy of the repo to your dev machine
-4. Add your team members as collaborators to the project so that they can push to this repo
-5. Let your team members know the repo URL so that they use the same repo (they should _not_ create a copy/fork of this repo since that will add additional workflow complexity to the project)
+Wiki Maps is a map sharing web app for users to share points of interest. Users are able to create maps, allow other users to insert pins with an image, title, and description, edit pins, and favourite maps. 
+
+This project is built with NodeJS Express (with RESTful routes), HTML/CSS (SASS preprocessor)/Javascript (jQuery library) on the front end, PostgreSQL for DBMS, Leaflet API for map rendering.
+
 
 
 ## Getting Started
