@@ -10,6 +10,16 @@ const viewAllFavouriteMaps = (user_id) => {
 }
 
 
+//refresh all favourite maps
+const refreshAllFavouriteMaps = (user_id) => {
+  $.ajax({
+    method: "GET",
+    url: `/favourites/${user_id}`
+  }).done((maps) => {
+    createFavouriteMaps(maps);
+  })
+}
+
 //create favourite maps
 const createFavouriteMaps = (maps) => {
   for (const i in maps) {
