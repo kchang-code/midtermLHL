@@ -79,6 +79,8 @@ html::-webkit-scrollbar-thumb:active {
   outline: none;
   background: transparent;
 
+
+
 }
 
 .deleteButton {
@@ -137,6 +139,8 @@ html::-webkit-scrollbar-thumb:active {
     border-bottom: 1px solid black;
     outline: none;
     background: transparent;
+    overflow-wrap: break-word;
+
   }
 
   #button-submit {
