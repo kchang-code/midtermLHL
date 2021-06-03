@@ -23,7 +23,7 @@ const createNewPopUps = (title, image, description, lat, lng) => {
   const $popups = `
         <div id='pin-pop'>
         <input id='popupTitle' value='${title}'>
-        <img id="output" width="200" height="200" src="/images/${image}.png" />
+        <img id="output" width="200" height="200" src="/images/Default.png" />
         <input id='popupDescription' value='${description}'>
         <input type="file"  accept="image/*" name="images" id="file"  onchange="loadFile(event)">
         <input id='lat' value='${lat}' type='hidden'>
