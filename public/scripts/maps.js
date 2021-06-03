@@ -5,7 +5,6 @@ const viewAllMaps = (user_id) => {
     url: "/maps"
   }).done((maps) => {
     createMaps(maps);
-    console.log(user_id);
     viewAllFavouriteMaps(user_id);
   })
 }

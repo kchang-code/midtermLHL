@@ -40,7 +40,7 @@ $(document).ready(() => {
       const editPinData = {
         title: $('#popupTitle').val(),
         description: $('#popupDescription').val(),
-        image: $('#popupImage').val(),
+        image: $('#output').attr('src'),
         map_id: $('#map-edit-id').val(),
         user_id: document.cookie[document.cookie.length - 1],
         lat: parseFloat($('#lat').val()).toFixed(2),
