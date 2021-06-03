@@ -1,7 +1,7 @@
 // See: https://sass-lang.com/
 
 body {
-  background-color: rgb(220, 222, 224);
+  background-color: #ddd;
 
   h1 {
     color: #244751;
@@ -36,6 +36,7 @@ html::-webkit-scrollbar-thumb:active {
 #top {
   display: flex;
   flex-direction: row;
+  background-color: #ddd;
 }
 
 #mapid {
@@ -279,6 +280,7 @@ html::-webkit-scrollbar-thumb:active {
   overflow: hidden;
   overflow-y: scroll;
   height: 160px;
+  background-color: #ddd;
 
   button,
   input[type="submit"] {
@@ -309,6 +311,7 @@ html::-webkit-scrollbar-thumb:active {
   overflow: hidden;
   overflow-y: scroll;
   height: 160px;
+  background-color: #ddd;
 
   div {
     color: black;
@@ -335,6 +338,7 @@ html::-webkit-scrollbar-thumb:active {
   overflow: hidden;
   overflow-y: scroll;
   height: 160px;
+  background-color: #ddd;
 
 }
 .fav-map-input {
@@ -350,11 +354,28 @@ html::-webkit-scrollbar-thumb:active {
 footer {
   height: 75px;
   width: 100%;
-  background-color: darkgreen;
+  background-color:  rgb(203, 161, 224);
   margin-top: 100px;
 }
 
 #footerInfo {
   float: right;
   font-size: 1.5em;
+}
+
+
+
+header {
+  background-color: rgb(203, 161, 224);
+}
+
+
+a.navbar-brand {
+  color: #244751;
+  font-size: 2em;
+  margin-left: 2em;
+}
+
+#login {
+  color: #244751;
 }

@@ -36,7 +36,7 @@ const addMarkerToDB = (mapID, userID, pinLat, pinLng) => {
   })
 }
 
-//delete marker
+//edit marker
 const editMarker = (editPinData) => {
   $.ajax({
     method: 'PUT',
@@ -44,6 +44,8 @@ const editMarker = (editPinData) => {
     data: editPinData
   }).then((result) => {
     console.log(result);
+    let map_name = $('#map-edit-name').val();
+    $('.map-name[value="' + map_name + '"]').trigger('click');
     $('#output').attr('src', editPinData.image);
   })
 }

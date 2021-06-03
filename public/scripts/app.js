@@ -47,7 +47,8 @@ $(document).ready(() => {
         lat: parseFloat($('#lat').val()).toFixed(2),
         lng: parseFloat($('#lng').val()).toFixed(2)
       };
-      editMarker(editPinData);
+      let map_name = $('#map-edit-name').val();
+      editMarker(editPinData, map_name);
     });
   }
 
