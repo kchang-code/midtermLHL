@@ -22,7 +22,7 @@ VALUES
 ('Chill Out','Whenever I am oerheating I like to grab some delicious ice-cream from this hot spot.','/images/ChillOut.jpeg', 4, 2, 46.07, -4.59),
 ('Turnip the Beet','I love beets and so should you, best beets around right here.','/images/TurnipTheBeet.jpeg', 4, 2, 47.64, -68.66),
 ('Cheesey Does It','So much cheese here that you will not be able to handle it, but you should try.','/images/CheeseyDoesIt.jpeg', 4, 2, 47.75, -72.01),
-('The Big Legrowlski','The Dude would approve.','/images/TheBigLegrowlski.jpeg', 1, 2, 51.84, -123.72);
+('The Big Legrowlski','The Dude would approve.','/images/TheBigLegrowlski.jpeg', 4, 2, 51.84, -123.72);
 
 
 -- GET THRIFTY

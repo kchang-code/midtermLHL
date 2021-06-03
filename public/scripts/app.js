@@ -40,7 +40,7 @@ $(document).ready(() => {
       const editPinData = {
         title: $('#popupTitle').val(),
         description: $('#popupDescription').val(),
-        image: $('#popupImage').val(),
+        image: $('#output').val(),
         map_id: $('#map-edit-id').val(),
         user_id: document.cookie[document.cookie.length - 1],
         lat: parseFloat($('#lat').val()).toFixed(2),
@@ -115,7 +115,7 @@ $(document).ready(() => {
   $('#edit-map').on('click', '.editButton', (event) => {
     event.preventDefault();
     loginCheck();
-    let mapData = { id: $('#map-edit-id').val(), name: $('#map-edit-name').val(), description: $('#map-edit-description').val() };
+    let mapData = { id: $('#map-edit-id').val(), name: $('#map-edit-name').val(), description: $('#map-edit-description').val(), image: $('#popupImage').val() };
     editMap(mapData);
   });
 
