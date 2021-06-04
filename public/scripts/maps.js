@@ -29,7 +29,7 @@ const viewSingleMap = (result) => {
       <h3>Edit Map</h3>
       <input id='map-edit-id' type="hidden" name="id" value='${result.maps[0].id}'>
       <input id='map-edit-name' name='name' value='${result.maps[0].name}'>
-      <input id='map-edit-description' name='description' value="${result.maps[0].description}">
+      <textarea id='map-edit-description' name='description'>${result.maps[0].description}</textarea>
       <input type='submit' value='Edit' class='editButton'>
   `;
   $(`<div>`).html($map).appendTo($("#edit-map"));
