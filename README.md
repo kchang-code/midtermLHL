@@ -3,8 +3,6 @@ WIKI MAPS
 
 ## Project Setup
 
-Wiki Maps is a Lighthouse Labs midterm project created by Jiaqi, Cecil, and Khea. 
-
 Wiki Maps is a map sharing web app for users to share points of interest. Users are able to create maps, allow other users to insert pins with an image, title, and description, edit pins, and favourite maps. 
 
 This project is built with NodeJS Express (with RESTful routes), HTML/CSS (SASS preprocessor)/Javascript (jQuery library) on the front end, PostgreSQL for DBMS, Leaflet API for map rendering.
